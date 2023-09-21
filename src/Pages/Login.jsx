@@ -10,7 +10,7 @@ function Login() {
         <Container maxWidth='sm' style={{ marginTop: '20px' }}>
             <Grid container>
                 <Grid container sx={{
-                    border: { xs: '1px solid #f3f3f3', sm: '1px solid red', md: '1px solid blue' },
+                    border: '1px solid #f3f3f3',
                     width: '400px', height: 'auto', boxShadow: "5px", alignItems: "center", padding: '20px', gap: '20px',
                     display: 'flex', flexDirection: 'column', alignItems: 'center'
 
@@ -28,9 +28,9 @@ function Login() {
                         <h1 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '1.0rem', textAlign: 'center' }}>Login</h1>
                         <h1 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '1.0rem', textAlign: 'center' }}> Use Your Fundoo acoount</h1>
                     </Grid>
-                    <Grid item container style={{ padding: '10px', marginBottom: "20px" }}>
-                        <TextField fullWidth label="fullWidth" id="fullWidth" />
-                        <TextField fullWidth label="fullWidth" id="fullWidth" />
+                    <Grid item container style={{ padding: '10px', marginBottom: "20px" , rowGap:'20px'}}>
+                        <TextField fullWidth label="Email or phone" id="fullWidth" />
+                        <TextField fullWidth label="Password" id="fullWidth" />
                                 <p>Forgot Password</p>
 
                     </Grid>
