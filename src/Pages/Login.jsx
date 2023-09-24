@@ -1,10 +1,10 @@
 import React from 'react'
 import Grid from '@mui/material/Grid'
 import { Typography, TextField, Container,Link,Button } from '@mui/material'
-
+import { signIn } from '../services/userService';
 
 function Login() {
-    const googleText = "Google";
+    const googleText = "Google"; 
     const colors = ['#4285F4', '#0F9D58', '#F4B400', '#DB4437', '#4285F4'];
     return (
         <Container maxWidth='sm' style={{ marginTop: '20px' }}>
@@ -43,7 +43,7 @@ function Login() {
                             </Typography>
 
                             <Button variant="contained" color="primary" >
-                                Next
+                                Login
                             </Button>
                         </Grid>
                         </Grid>
