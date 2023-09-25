@@ -11,13 +11,13 @@ function SignUp() {
     const [userDetails, setUserDetails] = useState({
         firstName: "",
         lastName: "",
-        service:"advance",
+        service: "advance",
         username: "",
         password: "",
         confirmPassword: "",
         showPassword: false,
     });
-    
+
 
     const [validationErrors, setValidationErrors] = useState({});
 
@@ -84,78 +84,80 @@ function SignUp() {
             validateUsername();
         }
     };
-    
-
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-  //const confirmPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
 
-  const validatePassword = () => {
-    if (!passwordRegex.test(userDetails.password)) {
-      setValidationErrors((prevState) => ({
-        ...prevState,
-        password: "Password  criteria: at least 8 characters, one uppercase letter, one lowercase letter, and one numeric digit.",
-      }));
-    } else {
-      setValidationErrors((prevState) => ({
-        ...prevState,
-        password: "",
-      }));
-    }
-  };
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    const confirmPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
-  const validateConfirmPassword = () => {
-    if (userDetails.password !== userDetails.confirmPassword) {
-      setValidationErrors((prevState) => ({
-        ...prevState,
-        confirmPassword: "Passwords do not match.",
-      }));
-    } else {
-      setValidationErrors((prevState) => ({
-        ...prevState,
-        confirmPassword: "",
-      }));
-    }
-  };
 
-  const handlePasswordChange = (e) => {
-    const { value } = e.target;
-    setUserDetails((prevUserDetails) => ({
-      ...prevUserDetails,
-      password: value,
-    }));
-    validatePassword(); // Call password validation function
-  };
+    const validatePassword = () => {
+        if (!passwordRegex.test(userDetails.password)) {
+            setValidationErrors((prevState) => ({
+                ...prevState,
+                password: "Password  criteria: at least 8 characters, one uppercase letter, one lowercase letter, and one numeric digit.",
+            }));
+        } else {
+            setValidationErrors((prevState) => ({
+                ...prevState,
+                password: "",
+            }));
+        }
+    };
 
-  const handleConfirmPasswordChange = (e) => {
-    const { value } = e.target;
-    setUserDetails((prevUserDetails) => ({
-      ...prevUserDetails,
-      confirmPassword: value,
-    }));
-    validateConfirmPassword(); // Call confirm password validation function
-  };
+    const validateConfirmPassword = () => {
+        if (userDetails.password === userDetails.confirmPassword) {
+            setValidationErrors((prevState) => ({
+                ...prevState,
+                confirmPassword: "Passwords do not match.",
+            }));
+        } else {
+            setValidationErrors((prevState) => ({
+                ...prevState,
+                confirmPassword: "",
+            }));
+        }
+    };
 
-  const navigate = useNavigate();
+    const handlePasswordChange = (e) => {
+        const { value } = e.target;
+        setUserDetails((prevUserDetails) => ({
+            ...prevUserDetails,
+            password: value,
+        }));
+        validatePassword(); // Call password validation function
+    };
 
-  const handleNextButtonClick = () => {
-    if (
-        !validationErrors.firstName &&
-        !validationErrors.lastName &&
-        !validationErrors.username &&
-        !validationErrors.password &&
-        !validationErrors.confirmPassword
-      ) {
-        // Save user details to local storage
-        localStorage.setItem('userDetails', JSON.stringify(userDetails));
-  
-        // Navigate to the next page (e.g., Login)
-        navigate('/Login');
-      } else {
-        // Handle validation errors or display a message to the user
-        console.error('Validation errors. Please correct them before proceeding.');
-      }
-  };
+    const handleConfirmPasswordChange = (e) => {
+        const { value } = e.target;
+        setUserDetails((prevUserDetails) => ({
+            ...prevUserDetails,
+            confirmPassword: value,
+        }));
+        validateConfirmPassword(); // Call confirm password validation function
+    };
+
+    const navigate = useNavigate();
+
+    const handleNextButtonClick = () => {
+        // Remove the password from local storage
+        if (
+            !validationErrors.firstName &&
+            !validationErrors.lastName &&
+            !validationErrors.username &&
+            !validationErrors.password &&
+            !validationErrors.confirmPassword &&
+            userDetails.password === userDetails.confirmPassword // Check if passwords match
+        ) {
+            // Save user details to local storage
+            localStorage.setItem('userDetails', JSON.stringify(userDetails));
+
+            // Navigate to the next page (e.g., Login)
+            navigate('/Login');
+        } else {
+            // Handle validation errors or display a message to the user
+            console.error('Validation errors or passwords do not match. Please correct them before proceeding.');
+        }
+    };
 
 
     const googleText = "Google";
@@ -165,7 +167,7 @@ function SignUp() {
             marginTop: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', "@media (max-width: 500px)": {
                 border: "none",
                 borderRadius: "0px",
-               padding:0
+                padding: 0
 
             },
         }}>
@@ -173,17 +175,22 @@ function SignUp() {
 
                 border: "1px solid black",
 
-                width: '750px', height: 'auto', boxShadow: "5px", alignItems: "center", padding: '20px', gap: '20px'
+                width: '750px', height: 'auto', boxShadow: "5px", alignItems: "center", padding: '20px', gap: '20px',
 
             }}>
-                <Grid sx={{ display: 'flex', justifyContent: 'space-between', width: '750px', height: 'auto', rowGap: '20px' }}>
+                <Grid sx={{ display: 'flex', justifyContent: 'space-between', width:'100%', height: 'auto', rowGap: '20px',
+                           
+                        }}>
 
-                    <Grid style={{
+                    <Grid style={{ paddingRight:'50px',
                         "@media (max-width: 500px)": {
                             // border: "none",
                             // borderRadius: 0,
-                            width:'100%',
-                            border:"1px solid red"
+                            width: '100%',
+                            border: "1px solid red",
+                            display:'flex',
+                            justifyContent:'center',
+                            marginLeft:"20px"
                         },
                     }}>
                         <Grid item style={{ marginTop: '0px' }}>
@@ -225,7 +232,7 @@ function SignUp() {
                             <TextField
                                 fullWidth
                                 label="Username*"
-                                id="fullWidth"
+                                id="email"
                                 error={!!validationErrors.username}
                                 helperText={validationErrors.username || ' '}
                                 value={userDetails.username}
@@ -237,34 +244,33 @@ function SignUp() {
                         </Grid>
                         <Grid item container spacing={2} style={{ marginTop: '10px' }}>
                             <Grid item xs={6}>
-                               <TextField
-                id="password"
-                label="Password*"
-                variant="outlined"
-                fullWidth
-                type={userDetails.showPassword ? 'text' : 'password'}
-                value={userDetails.password}
-                onChange={handlePasswordChange}
-                error={!!validationErrors.password}
-                helperText={validationErrors.password || ' '}
-                sx={{ fontSize: '0.8rem', padding: '0px', marginBottom: '10px' }}
-              />
+                                <TextField
+                                    id="password"
+                                    label="Password*"
+                                    variant="outlined"
+                                    type={userDetails.showPassword ? 'text' : 'password'}
+                                    value={userDetails.password}
+                                    onChange={handlePasswordChange}
+                                    error={!!validationErrors.password}
+                                    helperText={validationErrors.password || ' '}
+                                    sx={{ fontSize: '0.8rem', padding: '0px', marginBottom: '10px' }}
+                                />
 
                             </Grid>
                             <Grid item xs={6}>
-                                 <TextField
-                id="confirmPassword"
-                label="Confirm Password*"
-                variant="outlined"
-                fullWidth
-                type={userDetails.showPassword ? 'text' : 'password'}
-                value={userDetails.confirmPassword}
-                onChange={handleConfirmPasswordChange}
-                error={!!validationErrors.confirmPassword}
-                helperText={validationErrors.confirmPassword || ' '}
-                sx={{ fontSize: '0.8rem', padding: '0px', marginBottom: '10px' }}
-              />         
-                        </Grid>
+                                <TextField
+                                    id="confirmPassword"
+                                    label="Confirm Password*"
+                                    variant="outlined"
+                                    fullWidth
+                                    type={userDetails.showPassword ? 'text' : 'password'}
+                                    value={userDetails.confirmPassword}
+                                    onChange={handleConfirmPasswordChange}
+                                    error={!!validationErrors.confirmPassword}
+                                    helperText={validationErrors.confirmPassword || ' '}
+                                    sx={{ fontSize: '0.8rem', padding: '0px', marginBottom: '10px' }}
+                                />
+                            </Grid>
                         </Grid>
                         <Grid item >
                             <div style={{ alignItems: 'flex-start', marginLeft: '0px' }}>
@@ -282,17 +288,17 @@ function SignUp() {
                                 </Link>
                             </Typography>
 
-                            <Button variant="contained" color="primary"  onClick={handleNextButtonClick} >
+                            <Button variant="contained" color="primary" onClick={handleNextButtonClick} >
                                 Next
                             </Button>
                         </Grid>
 
                     </Grid>
-                    <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Paper elevation={0} className="right-side" sx={{
                             "@media (max-width: 600px)": {
                                 display: "none",
-
+                               
                             },
                         }}>
 

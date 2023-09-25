@@ -1,11 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Grid from '@mui/material/Grid'
-import { Typography, TextField, Container,Link,Button } from '@mui/material'
+import { Typography, TextField, Container, Link, Button } from '@mui/material'
 import { signIn } from '../services/userService';
+import { useNavigate } from 'react-router';
 
 function Login() {
-    const googleText = "Google"; 
+    const googleText = "Google";
     const colors = ['#4285F4', '#0F9D58', '#F4B400', '#DB4437', '#4285F4'];
+    
+    const [data, setData] = useState({
+        email: '',
+        password: ''
+    })
+
+    const navigate = useNavigate();
+    const handleChange =(e)=>{
+        setData({
+          ...data,
+          [e.target.id]: e.target.value
+        })
+      }
+
+    const submit = async() =>{
+        console.log("login")
+        const res = await signIn(data);
+        localStorage.getItem("userDetails", res.data.id)
+       
+        navigate("/dashboard");
+
+    }
     return (
         <Container maxWidth='sm' style={{ marginTop: '20px' }}>
             <Grid container>
@@ -17,7 +40,7 @@ function Login() {
                 }}>
                     <Grid item style={{ marginTop: '0px' }}>
 
-                        <div style={{ display: 'flex' , justifyContent:'center' }}>
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
                             {googleText.split('').map((letter, index) => (
                                 <Typography key={index} variant="h2" color="" component='p' style={{ color: colors[index], fontSize: '25px' }}>
                                     {letter}
@@ -28,26 +51,34 @@ function Login() {
                         <h1 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '1.0rem', textAlign: 'center' }}>Login</h1>
                         <h1 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '1.0rem', textAlign: 'center' }}> Use Your Fundoo acoount</h1>
                     </Grid>
-                    <Grid item container style={{ padding: '10px', marginBottom: "20px" , rowGap:'20px'}}>
-                        <TextField fullWidth label="Email or phone" id="fullWidth" />
-                        <TextField fullWidth label="Password" id="fullWidth" />
-                                <p>Forgot Password</p>
+                    <Grid item container style={{ padding: '10px', marginBottom: "20px", rowGap: '20px' }}>
+
+                        <TextField
+                            id="email"
+                            label="Email or phone"
+                            variant="outlined"
+                            fullWidth
+                            value={data.email}
+                            onChange={handleChange}
+                        />
+                        <TextField fullWidth label="Password" id="password" />
+                        <p>Forgot Password</p>
 
                     </Grid>
                     <Grid item >
                         <Grid item xs={12} sm={9} sx={{ display: "flex", gap: 20 }}>
-                        <Typography>
+                            <Typography>
                                 <Link href="#" color="primary">
                                     <span style={{ whiteSpace: "nowrap" }}>Sign in instead</span>
                                 </Link>
                             </Typography>
 
-                            <Button variant="contained" color="primary" >
+                            <Button variant="contained" color="primary" onClick={submit} >
                                 Login
                             </Button>
                         </Grid>
-                        </Grid>
-                            
+                    </Grid>
+
                 </Grid>
             </Grid>
         </Container>
