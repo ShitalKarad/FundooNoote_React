@@ -13,10 +13,10 @@ function Dashboard() {
   return (
     <div>
       <CssBaseline />
-      <Header setItem={setItem} />
+      <Header setItem={setItem} style={{ marginBottom: '20px' }} />
       <Container>
         <Grid container>
-          <Grid item xs={3}>
+          <Grid item xs={3} >
             {/* LeftNav goes here */}
             <LeftNav item={item} />
           </Grid>

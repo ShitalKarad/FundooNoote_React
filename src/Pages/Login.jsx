@@ -7,25 +7,26 @@ import { useNavigate } from 'react-router';
 function Login() {
     const googleText = "Google";
     const colors = ['#4285F4', '#0F9D58', '#F4B400', '#DB4437', '#4285F4'];
-    
+
     const [data, setData] = useState({
         email: '',
         password: ''
     })
 
     const navigate = useNavigate();
-    const handleChange =(e)=>{
+    const handleChange = (e) => {
         setData({
-          ...data,
-          [e.target.id]: e.target.value
+            ...data,
+            [e.target.id]: e.target.value
         })
-      }
+    }
 
-    const submit = async() =>{
+    const submit = async () => {
         console.log("login")
         const res = await signIn(data);
-        localStorage.getItem("userDetails", res.data.id)
-       
+        console.log("data", data);
+        localStorage.setItem("userDetails", res.data.id)
+        console.log("res-->", res);
         navigate("/dashboard");
 
     }
@@ -52,7 +53,6 @@ function Login() {
                         <h1 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '1.0rem', textAlign: 'center' }}> Use Your Fundoo acoount</h1>
                     </Grid>
                     <Grid item container style={{ padding: '10px', marginBottom: "20px", rowGap: '20px' }}>
-
                         <TextField
                             id="email"
                             label="Email or phone"
@@ -61,7 +61,14 @@ function Login() {
                             value={data.email}
                             onChange={handleChange}
                         />
-                        <TextField fullWidth label="Password" id="password" />
+                        <TextField
+                            id="password"
+                            label="Email or phone"
+                            variant="outlined"
+                            fullWidth
+                            value={data.password}
+                            onChange={handleChange}
+                        />                        
                         <p>Forgot Password</p>
 
                     </Grid>

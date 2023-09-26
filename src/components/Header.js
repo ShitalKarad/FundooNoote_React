@@ -7,11 +7,17 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+import RefreshIcon from '@mui/icons-material/Refresh'; 
+import AppsIcon from '@mui/icons-material/Apps';
+import SettingsIcon from '@mui/icons-material/Settings'; 
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'; 
+import ViewModuleIcon from '@mui/icons-material/ViewModule'; 
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.grey[300], 0.5),
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
@@ -54,23 +60,37 @@ const Header = ({setItem}) => {
     setItem(prev=> !prev)
   }
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" sx={{backgroundColor:'white'}}>
       <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu" onClick={menuToggle}>
+        <IconButton edge="start" color="black" aria-label="menu" onClick={menuToggle}>
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" style={{ flexGrow: 1 }}>
-          Google Keep
+        <Typography variant="h6" style={{ flexGrow: 1 ,display:'flex',height:'40px'}}>
+        <img class="gb_Hc gb_Hd" src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" srcset="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/keep_2020q4_48dp.png 2x " alt="" aria-hidden="true" role="presentation"/>
+         <h3 style={{color: "black",marginTop:'0px',marginLeft:'12px'}}>Keep</h3> 
         </Typography>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
+        <Search style={{marginRight:'200px' , width:'700px', height:'44px',  }}>
+          <SearchIconWrapper >
+            <StyledInputBase/>
+            <SearchIcon style={{color: "black", marginRight:'12px'}} />
+            <h3 style={{color: "black"}}>Search</h3>
           </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-          />
         </Search>
+        <IconButton edge="start" color="black" >
+          <RefreshIcon /> 
+        </IconButton>
+        <IconButton color="black">
+        <ViewModuleIcon />
+        </IconButton>
+        <IconButton color="black">
+          <SettingsIcon /> 
+        </IconButton>
+        <IconButton color="black">
+          <AppsIcon /> 
+        </IconButton>
+        <IconButton color="black">
+          <AccountCircleIcon /> 
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

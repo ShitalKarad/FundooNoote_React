@@ -1,65 +1,72 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import NoteIcon from '@mui/icons-material/Note'; // Note Icon
-import ReminderIcon from '@mui/icons-material/AccessAlarm'; // Reminder Icon
-import EditIcon from '@mui/icons-material/Edit'; // Edit Icon
-import LabelIcon from '@mui/icons-material/Label'; // Label Icon
-import ArchiveIcon from '@mui/icons-material/Archive'; // Archive Icon
-import BinIcon from '@mui/icons-material/Delete'; // Bin Icon
+import NoteIcon from '@mui/icons-material/Note'; 
+import ReminderIcon from '@mui/icons-material/AccessAlarm'; 
+import EditIcon from '@mui/icons-material/Edit'; 
+import LabelIcon from '@mui/icons-material/Label'; 
+import ArchiveIcon from '@mui/icons-material/Archive'; 
+import BinIcon from '@mui/icons-material/Delete'; 
 
-  const LeftNav = ({item}) => {
-    
+const LeftNav = ({ item }) => {
+  const drawerWidth = 240; 
+
+  const drawerStyles = {
+    width: item ? drawerWidth : '60px', 
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    transition: 'width 0.3s', 
+    marginTop:'70px'
+  };
+
   return (
-    <Drawer variant="permanent" anchor="left " > 
-      <List sx={{width:item? '100%':'60px'}}>
-        {/* Notes */}
-        <ListItem >
+    <Drawer
+      variant="permanent"
+      open={item}
+      PaperProps={{ style: drawerStyles }}
+    >
+      <List>
+        <ListItem>
           <ListItemIcon>
-            <NoteIcon /> {/* Icon for Notes */}
+            <NoteIcon /> 
           </ListItemIcon>
           <ListItemText primary="Notes" />
         </ListItem>
 
-        {/* Reminder */}
-        <ListItem >
+        <ListItem>
           <ListItemIcon>
-            <ReminderIcon /> {/* Icon for Reminder */}
+            <ReminderIcon /> 
           </ListItemIcon>
           <ListItemText primary="Reminder" />
         </ListItem>
 
-        {/* Edit */}
-        <ListItem >
+        <ListItem>
           <ListItemIcon>
-            <EditIcon /> {/* Icon for Edit */}
+            <EditIcon /> 
           </ListItemIcon>
           <ListItemText primary="Edit" />
         </ListItem>
 
-        {/* Label */}
-        <ListItem >
+        <ListItem>
           <ListItemIcon>
-            <LabelIcon /> {/* Icon for Label */}
+            <LabelIcon /> 
           </ListItemIcon>
           <ListItemText primary="Label" />
         </ListItem>
 
-        {/* Archive */}
-        <ListItem >
+        <ListItem>
           <ListItemIcon>
-            <ArchiveIcon /> {/* Icon for Archive */}
+            <ArchiveIcon /> 
           </ListItemIcon>
           <ListItemText primary="Archive" />
         </ListItem>
 
-        {/* Bin */}
-        <ListItem >
+        <ListItem>
           <ListItemIcon>
-            <BinIcon /> {/* Icon for Bin */}
+            <BinIcon /> 
           </ListItemIcon>
           <ListItemText primary="Bin" />
         </ListItem>

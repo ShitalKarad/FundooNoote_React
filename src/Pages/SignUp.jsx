@@ -11,11 +11,11 @@ function SignUp() {
     const [userDetails, setUserDetails] = useState({
         firstName: "",
         lastName: "",
-        service: "advance",
-        username: "",
+        email: "",
         password: "",
         confirmPassword: "",
-        showPassword: false,
+        service: "advance"
+        // showPassword: false,
     });
 
 
@@ -138,7 +138,7 @@ function SignUp() {
 
     const navigate = useNavigate();
 
-    const handleNextButtonClick = () => {
+    const handleNextButtonClick = async () => {
         // Remove the password from local storage
         if (
             !validationErrors.firstName &&
@@ -148,17 +148,18 @@ function SignUp() {
             !validationErrors.confirmPassword &&
             userDetails.password === userDetails.confirmPassword // Check if passwords match
         ) {
-            // Save user details to local storage
-            localStorage.setItem('userDetails', JSON.stringify(userDetails));
-
-            // Navigate to the next page (e.g., Login)
+            console.log("user",userDetails)
+            let res = await signUp(userDetails);
+            console.log(res);
             navigate('/Login');
         } else {
             // Handle validation errors or display a message to the user
             console.error('Validation errors or passwords do not match. Please correct them before proceeding.');
         }
     };
-
+    // const handleShowPasswordChange = (e) => {
+    //         setShowPassword(e.target.checked);
+    //       };
 
     const googleText = "Google";
     const colors = ['#4285F4', '#0F9D58', '#F4B400', '#DB4437', '#4285F4'];
@@ -178,19 +179,21 @@ function SignUp() {
                 width: '750px', height: 'auto', boxShadow: "5px", alignItems: "center", padding: '20px', gap: '20px',
 
             }}>
-                <Grid sx={{ display: 'flex', justifyContent: 'space-between', width:'100%', height: 'auto', rowGap: '20px',
-                           
-                        }}>
+                <Grid sx={{
+                    display: 'flex', justifyContent: 'space-between', width: '100%', height: 'auto', rowGap: '20px',
 
-                    <Grid style={{ paddingRight:'50px',
+                }}>
+
+                    <Grid style={{
+                        paddingRight: '50px',
                         "@media (max-width: 500px)": {
                             // border: "none",
                             // borderRadius: 0,
                             width: '100%',
                             border: "1px solid red",
-                            display:'flex',
-                            justifyContent:'center',
-                            marginLeft:"20px"
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginLeft: "20px"
                         },
                     }}>
                         <Grid item style={{ marginTop: '0px' }}>
@@ -210,7 +213,7 @@ function SignUp() {
                                 <TextField
                                     fullWidth
                                     label="First Name*"
-                                    id="fullWidth"
+                                    id="firstName"
                                     error={!!validationErrors.firstName}
                                     helperText={validationErrors.firstName || ' '}
                                     value={userDetails.firstName}
@@ -221,7 +224,7 @@ function SignUp() {
                                 <TextField
                                     fullWidth
                                     label="Last Name*"
-                                    id="fullWidth"
+                                    id="lastName"
                                     error={!!validationErrors.lastName} // Set error to true if there's a validation error
                                     helperText={validationErrors.lastName || ' '} // Display the error message if it exists
                                     value={userDetails.lastName}
@@ -231,12 +234,12 @@ function SignUp() {
                         <Grid item style={{ width: '100%', marginTop: '20px' }}>
                             <TextField
                                 fullWidth
-                                label="Username*"
+                                label="email"
                                 id="email"
                                 error={!!validationErrors.username}
                                 helperText={validationErrors.username || ' '}
                                 value={userDetails.username}
-                                onChange={(e) => handleInputChange(e, "username")}
+                                onChange={(e) => handleInputChange(e, "email")}
                             />                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: '0px' }}>
                                 <h1 style={{ fontSize: '0.7rem' }}>You can use letters, numbers & periods</h1>
                                 <p style={{ marginTop: '0px', }} >Use my current email instead</p>
@@ -279,7 +282,11 @@ function SignUp() {
                             </div>
                         </Grid>
                         <Grid item style={{ marginLeft: '0px', marginTop: '20px' }}>
-                            <FormControlLabel required control={<Checkbox />} label="Show Password" />
+                            {/* <Checkbox
+                                id="show-password"
+                                checked={showPassword}
+                                onChange={handleShowPasswordChange} // Handle checkbox change
+                            /> */}
                         </Grid>
                         <Grid item xs={12} sm={9} sx={{ display: "flex", gap: 29, marginTop: '30px' }}>
                             <Typography>
@@ -298,10 +305,9 @@ function SignUp() {
                         <Paper elevation={0} className="right-side" sx={{
                             "@media (max-width: 600px)": {
                                 display: "none",
-                               
+
                             },
                         }}>
-
                             <img
                                 src={signUpImg}
                                 alt="Sign Up"
