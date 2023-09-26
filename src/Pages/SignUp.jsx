@@ -157,9 +157,11 @@ function SignUp() {
             console.error('Validation errors or passwords do not match. Please correct them before proceeding.');
         }
     };
-    // const handleShowPasswordChange = (e) => {
-    //         setShowPassword(e.target.checked);
-    //       };
+
+    const[showPassword,setShowPassword] = useState();
+    const handleShowPasswordChange = (e) => {
+            setShowPassword(e.target.checked);
+          };
 
     const googleText = "Google";
     const colors = ['#4285F4', '#0F9D58', '#F4B400', '#DB4437', '#4285F4'];
@@ -251,7 +253,7 @@ function SignUp() {
                                     id="password"
                                     label="Password*"
                                     variant="outlined"
-                                    type={userDetails.showPassword ? 'text' : 'password'}
+                                    type={showPassword ? 'text' : 'password'}
                                     value={userDetails.password}
                                     onChange={handlePasswordChange}
                                     error={!!validationErrors.password}
@@ -265,8 +267,7 @@ function SignUp() {
                                     id="confirmPassword"
                                     label="Confirm Password*"
                                     variant="outlined"
-                                    fullWidth
-                                    type={userDetails.showPassword ? 'text' : 'password'}
+                                    type={showPassword ? 'text' : 'password'}
                                     value={userDetails.confirmPassword}
                                     onChange={handleConfirmPasswordChange}
                                     error={!!validationErrors.confirmPassword}
@@ -282,15 +283,16 @@ function SignUp() {
                             </div>
                         </Grid>
                         <Grid item style={{ marginLeft: '0px', marginTop: '20px' }}>
-                            {/* <Checkbox
-                                id="show-password"
+                            <Checkbox
+                                id="showPassword"
                                 checked={showPassword}
                                 onChange={handleShowPasswordChange} // Handle checkbox change
-                            /> */}
+                            />
+                            <label htmlFor="showPassword">Show Password</label>
                         </Grid>
                         <Grid item xs={12} sm={9} sx={{ display: "flex", gap: 29, marginTop: '30px' }}>
                             <Typography>
-                                <Link href="#" color="primary">
+                                <Link href="/login" color="primary">
                                     <span style={{ whiteSpace: "nowrap" }}>Sign in instead</span>
                                 </Link>
                             </Typography>

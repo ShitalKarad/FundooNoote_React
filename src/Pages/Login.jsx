@@ -75,8 +75,8 @@ function Login() {
                     <Grid item >
                         <Grid item xs={12} sm={9} sx={{ display: "flex", gap: 20 }}>
                             <Typography>
-                                <Link href="#" color="primary">
-                                    <span style={{ whiteSpace: "nowrap" }}>Sign in instead</span>
+                                <Link href="/" color="primary">
+                                    <span style={{ whiteSpace: "nowrap" }}>Create Account</span>
                                 </Link>
                             </Typography>
 
