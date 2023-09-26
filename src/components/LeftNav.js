@@ -4,12 +4,11 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import NoteIcon from '@mui/icons-material/Note'; 
+import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import ReminderIcon from '@mui/icons-material/AccessAlarm'; 
-import EditIcon from '@mui/icons-material/Edit'; 
-import LabelIcon from '@mui/icons-material/Label'; 
-import ArchiveIcon from '@mui/icons-material/Archive'; 
-import BinIcon from '@mui/icons-material/Delete'; 
+import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
+import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 const LeftNav = ({ item }) => {
   const drawerWidth = 240; 
@@ -19,19 +18,20 @@ const LeftNav = ({ item }) => {
     flexShrink: 0,
     whiteSpace: 'nowrap',
     transition: 'width 0.3s', 
-    marginTop:'70px'
+    marginTop:'70px',
+    border:'none'
   };
 
   return (
     <Drawer
       variant="permanent"
       open={item}
-      PaperProps={{ style: drawerStyles }}
+      PaperProps={{ style: drawerStyles}}
     >
       <List>
         <ListItem>
           <ListItemIcon>
-            <NoteIcon /> 
+            <LightbulbOutlinedIcon /> 
           </ListItemIcon>
           <ListItemText primary="Notes" />
         </ListItem>
@@ -45,28 +45,21 @@ const LeftNav = ({ item }) => {
 
         <ListItem>
           <ListItemIcon>
-            <EditIcon /> 
+            <ModeEditOutlinedIcon /> 
           </ListItemIcon>
           <ListItemText primary="Edit" />
         </ListItem>
 
         <ListItem>
           <ListItemIcon>
-            <LabelIcon /> 
-          </ListItemIcon>
-          <ListItemText primary="Label" />
-        </ListItem>
-
-        <ListItem>
-          <ListItemIcon>
-            <ArchiveIcon /> 
+            <ArchiveOutlinedIcon /> 
           </ListItemIcon>
           <ListItemText primary="Archive" />
         </ListItem>
 
         <ListItem>
           <ListItemIcon>
-            <BinIcon /> 
+            <DeleteOutlineOutlinedIcon /> 
           </ListItemIcon>
           <ListItemText primary="Bin" />
         </ListItem>

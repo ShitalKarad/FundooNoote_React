@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import LeftNav from '../components/LeftNav';
 import CssBaseline from '@mui/material/CssBaseline';
 import TakeNoteFirst from '../components/TakeNote/TakeNoteFirst/TakeNoteFirst';
+import TakeNoteTwo from '../components/TakeNote/TakeNoteTwo/TakeNoteTwo';
 
 function Dashboard() {
   const[item , setItem] = useState(
@@ -23,6 +24,7 @@ function Dashboard() {
           </Grid>
           <Grid item xs={9}>
             <TakeNoteFirst></TakeNoteFirst>
+            <TakeNoteTwo/>
           </Grid>
         </Grid>
       </Container>

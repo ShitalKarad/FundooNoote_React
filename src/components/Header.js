@@ -9,9 +9,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import RefreshIcon from '@mui/icons-material/Refresh'; 
 import AppsIcon from '@mui/icons-material/Apps';
-import SettingsIcon from '@mui/icons-material/Settings'; 
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'; 
-import ViewModuleIcon from '@mui/icons-material/ViewModule'; 
+import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -80,10 +80,10 @@ const Header = ({setItem}) => {
           <RefreshIcon /> 
         </IconButton>
         <IconButton color="black">
-        <ViewModuleIcon />
+        <GridViewOutlinedIcon />
         </IconButton>
         <IconButton color="black">
-          <SettingsIcon /> 
+          <SettingsOutlinedIcon /> 
         </IconButton>
         <IconButton color="black">
           <AppsIcon /> 
