@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Header = ({setItem}) => {
+const Header = ({setItem ,setGrid}) => {
   function menuToggle() {
     setItem(prev=> !prev)
   }
@@ -79,8 +79,8 @@ const Header = ({setItem}) => {
         <IconButton edge="start" color="black" >
           <RefreshIcon /> 
         </IconButton>
-        <IconButton color="black">
-        <GridViewOutlinedIcon />
+        <IconButton color="black" onClick={setGrid}>
+        <GridViewOutlinedIcon   />
         </IconButton>
         <IconButton color="black">
           <SettingsOutlinedIcon /> 

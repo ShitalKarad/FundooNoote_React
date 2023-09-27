@@ -26,7 +26,7 @@ function TakeNoteTwo() {
                             </InputAdornment>
                         ),
                     }}
-                // style={textFieldStyles.textField}
+               
                 />
                 <TextField
                     variant="standard" placeholder='Take a note...'  fullWidth sx={{ 
@@ -67,6 +67,8 @@ function TakeNoteTwo() {
                     <IconButton>
                         <RedoOutlinedIcon />
                     </IconButton>
+                    
+                    <button style={{border:'none'}}>Close</button>
                 </Typography>
             </Paper>
 
