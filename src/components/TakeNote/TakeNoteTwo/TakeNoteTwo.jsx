@@ -28,7 +28,7 @@ function TakeNoteTwo() {
             [e.target.id] :e.target.value
         })
      }
-    const addNoteHandle = async() => {
+    const  addNoteHandle = async() => {
         // console.log("adddata",addData);
          let res = await addNote(addData);
          console.log(res);

@@ -43,7 +43,7 @@ const noteGetData = async() =>{
 useEffect(() => {
   noteGetData();
 
-}, [])
+}, [getdata])
 
 console.log(getdata);
   return (
@@ -52,24 +52,15 @@ console.log(getdata);
       <Header setItem={setItem} setGrid={GridListNote} style={{ marginBottom: '20px' }} />
       <Container>
         <Grid container>
-          <Grid item xs={3} >
+          <Grid item xs={3}>
             <LeftNav item={item} />
           </Grid>
           <Grid item xs={9}>
-            {
-              toggle ? <TakeNoteTwo toggleNote={toggleNote} /> : <TakeNoteFirst toggleNote={toggleNote} />
-            }
+            {toggle ? <TakeNoteTwo toggleNote={toggleNote} /> : <TakeNoteFirst toggleNote={toggleNote} />}
 
-            {/* <TakeNoteFirst/>
-            <TakeNoteTwo /> */}
-
-            {
-              gird ? <TakeNoteGrid gridNote={gird} /> : <TakeNoteThreeList gridNote={gird } />
-            }
-
-            {/* <TakeNoteGrid />
-            <TakeNoteThreeList /> */}
-
+            {getdata.map((note) => (
+              <TakeNoteGrid key={note.id} title={note.title} description={note.description} />
+            ))}
           </Grid>
         </Grid>
       </Container>
