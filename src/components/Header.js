@@ -79,7 +79,7 @@ const Header = ({setItem ,setGrid}) => {
         <IconButton edge="start" color="black" >
           <RefreshIcon /> 
         </IconButton>
-        <IconButton color="black" onClick={setGrid}>
+        <IconButton color="black" onClick={setGrid }>
         <GridViewOutlinedIcon   />
         </IconButton>
         <IconButton color="black">

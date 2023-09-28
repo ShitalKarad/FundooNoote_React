@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import { Container, Paper, TextField, Typography, IconButton } from '@mui/material'
 import InputAdornment from '@mui/material/InputAdornment';
@@ -10,18 +10,46 @@ import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 import UndoOutlinedIcon from '@mui/icons-material/UndoOutlined';
 import RedoOutlinedIcon from '@mui/icons-material/RedoOutlined';
+import { addNote } from '../../../services/noteServices';
 
 function TakeNoteTwo() {
+
+    const[addData, setaddData] = useState({
+        title :'',
+        description: '',
+        isArchived:false,
+         color:''
+
+    })
+
+     const handleChange = (e)=>{
+        setaddData({
+            ...addData,
+            [e.target.id] :e.target.value
+        })
+     }
+    const addNoteHandle = async() => {
+        // console.log("adddata",addData);
+         let res = await addNote(addData);
+         console.log(res);
+    }
+
+    const handleArchive = () =>{
+       setaddData({
+        ...addData,
+        isArchived :true
+       })
+    }
     return (
         <Container maxWidth='sm' style={{ width: '100%', margin: '30px' }}>
             <Paper elevation={5} sx={{ p: 3 }}>
                 <TextField
-                    variant="standard" placeholder='Title' fullWidth sx={{ outline: 'none', ':&hover': { border: 'none' } }}
+                     id='title' value={addData.title} variant="standard" placeholder='Title' onChange={handleChange} fullWidth sx={{ outline: 'none', ':&hover': { border: 'none' } }}
 
                     InputProps={{
                         disableUnderline: true,
                         endAdornment: (
-                            <InputAdornment position="end" maxWidth='sm' style={{ border: 'none', display: 'flex', rowGap: '20px', justifyContent: 'flex-end' }}>
+                            <InputAdornment position="end" maxWidth='sm'  style={{ border: 'none', display: 'flex', rowGap: '20px', justifyContent: 'flex-end' }}>
                                 <PushPinOutlinedIcon />
                             </InputAdornment>
                         ),
@@ -29,7 +57,7 @@ function TakeNoteTwo() {
                
                 />
                 <TextField
-                    variant="standard" placeholder='Take a note...'  fullWidth sx={{ 
+                    id='description' value={addData.description}  onChange={handleChange} variant="standard" placeholder='Take a note...'  fullWidth sx={{ 
                      py: '20px', outline: 'none', ':&hover': { border: 'none' } }}
                     InputProps={{ disableUnderline: true,style:{ fontFamily: "Roboto,Arial,sans-serif",
                     fontSize: ".875rem",
@@ -45,19 +73,19 @@ function TakeNoteTwo() {
                     </IconButton>
 
                     <IconButton>
-                        <ColorLensOutlinedIcon sx={'small'} />
+                        <ColorLensOutlinedIcon  />
                     </IconButton>
 
                     <IconButton>
-                        <ImageOutlinedIcon  sx={'small'}/>
+                        <ImageOutlinedIcon  />
+                    </IconButton>
+
+                    <IconButton onClick={handleArchive}>
+                        <ArchiveOutlinedIcon />
                     </IconButton>
 
                     <IconButton>
-                        <ArchiveOutlinedIcon  sx={'small'}/>
-                    </IconButton>
-
-                    <IconButton>
-                        <MoreVertOutlinedIcon sx={'small'} />
+                        <MoreVertOutlinedIcon />
                     </IconButton>
 
                     <IconButton>
@@ -68,7 +96,7 @@ function TakeNoteTwo() {
                         <RedoOutlinedIcon />
                     </IconButton>
                     
-                    <button style={{border:'none'}}>Close</button>
+                    <button onClick={addNoteHandle} style={{border:'none'}}>Close</button>
                 </Typography>
             </Paper>
 

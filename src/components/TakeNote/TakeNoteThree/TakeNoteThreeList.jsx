@@ -22,7 +22,7 @@ function TakeNoteGrid() {
     };
 
     return (
-        <Container maxWidth='sm' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
+        <Container maxWidth='sm' sx={{m:4}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
             <Paper style={{ border: '1px solid gray',  height: 'auto' }}>
                 <Grid style={{ margin: '15px' }}>
                     <Grid item style={{ display: 'flex', justifyContent: 'space-between' }}>

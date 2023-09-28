@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Header from '../components/Header';
@@ -8,6 +8,7 @@ import TakeNoteFirst from '../components/TakeNote/TakeNoteFirst/TakeNoteFirst';
 import TakeNoteTwo from '../components/TakeNote/TakeNoteTwo/TakeNoteTwo';
 import TakeNoteGrid from '../components/TakeNote/TakeNoteThree/TakeNoteGrid';
 import TakeNoteThreeList from '../components/TakeNote/TakeNoteThree/TakeNoteThreeList'
+import { getNote } from '../services/noteServices';
 
 function Dashboard() {
   const [item, setItem] = useState(
@@ -30,7 +31,21 @@ function Dashboard() {
     setGrid(previousState => !previousState)
   }
 console.log("grid",gird);
+ 
+const[getdata,setGetData] = useState([]);
 
+const noteGetData = async() =>{
+  let response = await getNote()
+  setGetData(response.data.data.data)
+  console.log(response);
+} 
+
+useEffect(() => {
+  noteGetData();
+
+}, [])
+
+console.log(getdata);
   return (
     <div>
       <CssBaseline />
@@ -38,7 +53,6 @@ console.log("grid",gird);
       <Container>
         <Grid container>
           <Grid item xs={3} >
-
             <LeftNav item={item} />
           </Grid>
           <Grid item xs={9}>
@@ -55,6 +69,7 @@ console.log("grid",gird);
 
             {/* <TakeNoteGrid />
             <TakeNoteThreeList /> */}
+
           </Grid>
         </Grid>
       </Container>

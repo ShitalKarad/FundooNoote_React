@@ -85,11 +85,8 @@ function SignUp() {
         }
     };
 
-
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    const confirmPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-
-
+    
     const validatePassword = () => {
         if (!passwordRegex.test(userDetails.password)) {
             setValidationErrors((prevState) => ({
@@ -166,6 +163,7 @@ function SignUp() {
     const googleText = "Google";
     const colors = ['#4285F4', '#0F9D58', '#F4B400', '#DB4437', '#4285F4'];
     return (
+
         <Container maxWidth='sm' style={{
             marginTop: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', "@media (max-width: 500px)": {
                 border: "none",
@@ -189,8 +187,6 @@ function SignUp() {
                     <Grid style={{
                         paddingRight: '50px',
                         "@media (max-width: 500px)": {
-                            // border: "none",
-                            // borderRadius: 0,
                             width: '100%',
                             border: "1px solid red",
                             display: 'flex',
