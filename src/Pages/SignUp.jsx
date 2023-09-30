@@ -87,7 +87,6 @@ function SignUp() {
 
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    const confirmPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
 
     const validatePassword = () => {
@@ -233,7 +232,7 @@ function SignUp() {
                                     onChange={(e) => handleInputChange(e, "lastName")}
                                 />                                  </Grid>
                         </Grid>
-                        <Grid item style={{ width: '100%', marginTop: '20px' }}>
+                        <Grid item style={{ width: '100%' }}>
                             <TextField
                                 fullWidth
                                 label="email"
@@ -247,7 +246,7 @@ function SignUp() {
                                 <p style={{ marginTop: '0px', }} >Use my current email instead</p>
                             </div>
                         </Grid>
-                        <Grid item container spacing={2} style={{ marginTop: '10px' }}>
+                        <Grid item container spacing={2} >
                             <Grid item xs={6}>
                                 <TextField
                                     id="password"

@@ -63,7 +63,7 @@ function Login() {
                         />
                         <TextField
                             id="password"
-                            label="Email or phone"
+                            label="Password"
                             variant="outlined"
                             fullWidth
                             value={data.password}
