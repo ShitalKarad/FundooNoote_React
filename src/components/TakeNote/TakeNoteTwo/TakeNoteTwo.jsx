@@ -106,7 +106,8 @@ function TakeNoteTwo({ noteGetData }) {
                         width: '100%',
                         border: 'none',
                         marginTop:'20px',
-                        outline: 'none', ':&hover': { border: 'none' } 
+                        outline: 'none', ':&hover': { border: 'none' } ,
+                        backgroundColor: selectedColor
 
                     }}
                 />

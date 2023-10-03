@@ -3,7 +3,7 @@ import { IconButton, Popover } from '@mui/material';
 import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 
 const ColorPicker = ({ onSelectColor }) => {
-    const colors = ['#ffffff', '#ffcc80', '#80ffea', '#ccff80', '#ff9999'];
+    const colors = ['#ffffff', '#ffcc80', '#80ffea', '#ccff80', '#ff9999', '#03a9f4','#bdbdbd','#4e342e','#607d8b','#ffff00','#f57f17','#ffff8d'];
     
   return (
     <div style={{ display: 'flex', gap: '8px' }}>

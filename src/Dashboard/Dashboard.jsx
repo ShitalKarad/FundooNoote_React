@@ -106,7 +106,8 @@ const[typeOfNotes, SetTypeOfNotes] = useState("Notes");
             {getdata.map((item) => (
               gird ? <TakeNoteGrid key={item.id} item= {item} noteGetData={noteGetData} 
                gridNote={gird} id={item.id}  selectedColor={item.color} /> 
-              : <TakeNoteThreeList key={item.id} item= {item} noteGetData={noteGetData} gridNote={gird}  selectedColor={item.color} />
+              : <TakeNoteThreeList key={item.id} item= {item} noteGetData={noteGetData}
+               gridNote={gird}  selectedColor={item.color} />
             ))}
           </Grid>
         </Grid>

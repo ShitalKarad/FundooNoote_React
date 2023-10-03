@@ -49,3 +49,11 @@ export const colourNote = async ( data) => {
     console.log(response);
     return response;
 }
+
+export const PermenentDeleteNote = async ( id) => {
+    let response = await axios.post( `${url}/deleteForeverNotes`,id
+        , headerConfig());
+
+    console.log(response);
+    return response;
+}

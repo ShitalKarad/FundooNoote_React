@@ -10,11 +10,11 @@ import { IconButton, Typography } from '@mui/material';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import { archiveNote } from '../../../services/noteServices';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-
+import ColorPickerButton from '../ColourSelection';
 import { deleteNote } from '../../../services/noteServices';
+import { colourNote } from '../../../services/noteServices';
 
-
-function TakeNoteGrid({ item, isArchived ,id  ,noteGetData}) {
+function TakeNoteGrid({ item ,id  ,noteGetData}) {
     const [iconVisibility, setIconVisibility] = useState(false);
 
     const handleMouseEnter = () => {
@@ -44,9 +44,40 @@ function TakeNoteGrid({ item, isArchived ,id  ,noteGetData}) {
         console.log(res);
         noteGetData()
     }
+
+    const [addData, setaddData] = useState({
+        title: '',
+        description: '',
+        isArchived: false,
+        color: ""
+    
+    })
+    
+      let handleColourChange = async () => {
+        let data ={
+          noteIdList:[id],
+          color:selectedColor
+        }
+        let response = await colourNote(data);
+        console.log('API response:', response); 
+        noteGetData()
+    
+      }
+    
+      const [selectedColor, setSelectedColor] = useState('#ffffff');
+    
+      const handleColorSelect = (color) => {
+        setSelectedColor(color);
+        setaddData({
+          ...addData,
+          color:color
+        })
+      };
+    
     return (
         <Container maxWidth='3' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
-            <Paper style={{ border: '1px solid gray',  height: 'auto',width:'67%' ,marginLeft:'30px', marginBottom:'20px'}}>
+            <Paper style={{ border: '1px solid gray',  height: 'auto',width:'67%' 
+            ,marginLeft:'30px', marginBottom:'20px' ,backgroundColor: item.color,}}>
                 <Grid style={{ margin: '15px' , }}>
                     <Grid item style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography>{item.title}</Typography>
@@ -73,9 +104,10 @@ function TakeNoteGrid({ item, isArchived ,id  ,noteGetData}) {
                                 <PersonAddAltOutlinedIcon style={{ fontSize: '20px' }} />
                             </IconButton>
 
-                            <IconButton sx={{ paddingRight: '20px' }}>
-                                <ColorLensOutlinedIcon style={{ fontSize: '20px' }} />
-                            </IconButton>
+                            <IconButton onClick={() => handleColourChange(selectedColor)} sx={{ paddingRight: '20px' }}>
+              <ColorPickerButton onSelectColor={handleColorSelect} style={{ fontSize: '20px' }} />
+            </IconButton>
+
 
                             <IconButton sx={{ paddingRight: '20px' }}>
                                 <ImageOutlinedIcon style={{ fontSize: '20px' }} />
