@@ -41,3 +41,11 @@ export const deleteNote = async ( data) => {
     console.log(response);
     return response;
 }
+
+export const colourNote = async ( data) => {
+    let response = await axios.post( `${url}/changesColorNotes`,data
+        , headerConfig());
+
+    console.log(response);
+    return response;
+}

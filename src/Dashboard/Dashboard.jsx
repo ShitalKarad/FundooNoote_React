@@ -12,7 +12,20 @@ import { getNote } from '../services/noteServices';
 import { useLocation } from 'react-router';
 
 function Dashboard() {
-  const location = useLocation()
+  // const location = useLocation()
+
+
+  // const [selectedColor, setSelectedColor] = useState('#ffffff'); // State for selected color
+
+  
+
+  // const handleColorSelect = (color) => {
+  //   setSelectedColor(color);
+  //   setaddData({
+  //     ...addData,
+  //     color:color
+  //   })
+  // };
 
   const [item, setItem] = useState(
     false
@@ -75,7 +88,7 @@ const[typeOfNotes, SetTypeOfNotes] = useState("Notes");
   useEffect(() => {
     noteGetData();
 
-  }, [typeOfNotes])
+  }, [typeOfNotes,getdata.length])
 
   console.log(getdata);
   return (
@@ -88,10 +101,12 @@ const[typeOfNotes, SetTypeOfNotes] = useState("Notes");
             <LeftNav SetTypeOfNotes={SetTypeOfNotes} item={item} />
           </Grid>
           <Grid item xs={9}>
-            {toggle ? <TakeNoteTwo toggleNote={toggleNote} noteGetData={noteGetData} /> : <TakeNoteFirst toggleNote={toggleNote} />}
+            {toggle ? <TakeNoteTwo toggleNote={toggleNote} noteGetData={noteGetData}  /> : <TakeNoteFirst toggleNote={toggleNote} />}
 
             {getdata.map((item) => (
-              gird ? <TakeNoteGrid key={item.id} {...item} noteGetData={noteGetData}  gridNote={gird} id={item.id} /> : <TakeNoteThreeList key={item.id} {...item} gridNote={gird} />
+              gird ? <TakeNoteGrid key={item.id} item= {item} noteGetData={noteGetData} 
+               gridNote={gird} id={item.id}  selectedColor={item.color} /> 
+              : <TakeNoteThreeList key={item.id} item= {item} noteGetData={noteGetData} gridNote={gird}  selectedColor={item.color} />
             ))}
           </Grid>
         </Grid>

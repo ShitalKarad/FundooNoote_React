@@ -208,7 +208,8 @@ const LeftNav = ({ item, primary ,SetTypeOfNotes}) => {
           onMouseEnter={() => handleMouseEnter('Notes')}
           onMouseLeave={handleMouseLeave}
           style={{
-            borderRadius: '20px',
+            borderTopRightRadius: '20px',
+            borderBottomRightRadius: '20px',
             background:
               clickedItem === 'Notes'
                 ? '#feefc3'
@@ -229,7 +230,8 @@ const LeftNav = ({ item, primary ,SetTypeOfNotes}) => {
           onMouseEnter={() => handleMouseEnter('Reminder')}
           onMouseLeave={handleMouseLeave}
           style={{
-            borderRadius: '20px',
+            borderTopRightRadius: '20px',
+            borderBottomRightRadius: '20px',
             background:
               clickedItem === 'Reminder'
                 ? '#feefc3'
@@ -250,7 +252,8 @@ const LeftNav = ({ item, primary ,SetTypeOfNotes}) => {
           onMouseEnter={() => handleMouseEnter('Edit')}
           onMouseLeave={handleMouseLeave}
           style={{
-            borderRadius: '20px',
+            borderTopRightRadius: '20px',
+            borderBottomRightRadius: '20px',
             background:
               clickedItem === 'Edit'
                 ? '#feefc3'
@@ -272,7 +275,8 @@ const LeftNav = ({ item, primary ,SetTypeOfNotes}) => {
           onMouseEnter={() => handleMouseEnter('Archive')}
           onMouseLeave={handleMouseLeave}
           style={{
-            borderRadius: '20px',
+            borderTopRightRadius: '20px',
+            borderBottomRightRadius: '20px',
             background:
               clickedItem === 'Archive'
                 ? '#feefc3'
@@ -293,7 +297,8 @@ const LeftNav = ({ item, primary ,SetTypeOfNotes}) => {
           onMouseEnter={() => handleMouseEnter('Bin')}
           onMouseLeave={handleMouseLeave}
           style={{
-            borderRadius: '20px',
+            borderTopRightRadius: '20px',
+            borderBottomRightRadius: '20px',
             background:
               clickedItem === 'Bin'
                 ? '#feefc3'

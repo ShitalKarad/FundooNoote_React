@@ -9,14 +9,13 @@ import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 import { archiveNote } from '../../../services/noteServices';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-
 import { deleteNote } from '../../../services/noteServices';
-
 import { IconButton, Typography } from '@mui/material';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
+import { colourNote } from '../../../services/noteServices';
+import ColorPickerButton from '../ColourSelection';
 
-
-function TakeNoteGrid({ title, description, isArchived ,id  ,noteGetData}) {
+function TakeNoteGrid({item,  id, noteGetData }) {
   const [iconVisibility, setIconVisibility] = useState(false);
 
   const handleMouseEnter = () => {
@@ -37,7 +36,7 @@ function TakeNoteGrid({ title, description, isArchived ,id  ,noteGetData}) {
     console.log(res);
 
   }
-  let handleDelete = async() =>{
+  let handleDelete = async () => {
     console.log('clicked');
     let data = {
       noteIdList: [id],
@@ -48,48 +47,88 @@ function TakeNoteGrid({ title, description, isArchived ,id  ,noteGetData}) {
     noteGetData()
 
   }
+  const [addData, setaddData] = useState({
+    title: '',
+    description: '',
+    isArchived: false,
+    color: ""
+
+})
+
+  let handleColourChange = async () => {
+    let data ={
+      noteIdList:[id],
+      color:selectedColor
+    }
+    let response = await colourNote(data);
+    console.log('API response:', response); 
+    noteGetData()
+
+  }
+
+  const [selectedColor, setSelectedColor] = useState('#ffffff');
+
+  const handleColorSelect = (color) => {
+    setSelectedColor(color);
+    setaddData({
+      ...addData,
+      color:color
+    })
+  };
+
   return (
-    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <Paper style={{ border: '1px solid gray', width: '330px', height: 'auto' }}>
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ maxWidth: '330px', margin: '15px', display: 'inline-block' ,
+     display: 'flex' , flexDirection:'row' , justifyContent:'center',alignItems: 'left'}}>
+      <Paper sx={{
+        backgroundColor: item.color, // Set background color based on selectedColor prop
+        // Add other card styles here
+        border: '1px solid gray', width: '330px', height: 'auto',  
+      }}>
         <Grid container spacing={2} style={{ padding: '15px' }}>
-          <Grid item xs={12}>
-            <Typography>{title}</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography style={{ paddingTop: '20px' }}>{description}</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden', paddingTop: '20px' }}>
-              <IconButton aria-label="Reminder" sx={{ paddingRight: '20px' }}>
-                <AddAlertOutlinedIcon style={{ fontSize: '20px' }} />
-              </IconButton>
-
-              <IconButton sx={{ paddingRight: '20px' }}>
-                <PersonAddAltOutlinedIcon style={{ fontSize: '20px' }} />
-              </IconButton>
-
-              <IconButton sx={{ paddingRight: '20px' }}>
-                <ColorLensOutlinedIcon style={{ fontSize: '20px' }} />
-              </IconButton>
-
-              <IconButton sx={{ paddingRight: '20px' }}>
-                <ImageOutlinedIcon style={{ fontSize: '20px' }} />
-              </IconButton>
-
-              <IconButton onClick={onchangeArchive} sx={{ paddingRight: '20px' }}>
-                <ArchiveOutlinedIcon style={{ fontSize: '20px' }} />
-              </IconButton>
-
-              <IconButton  onClick={handleDelete} sx={{ paddingRight: '20px' }}>
-                <DeleteOutlineOutlinedIcon style={{ fontSize: '20px' }} />
-              </IconButton>
-             
+          <Grid item style={{ display: 'flex', justifyContent: 'space-between', justifyContent: 'flex-end' }}>
+            <Typography>{item.title}</Typography>
+            <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden' }}>
+              <PushPinOutlinedIcon style={{ fontSize: '20px', marginLeft:'190px' }} />
             </Typography>
           </Grid>
         </Grid>
+        <Grid item xs={12}>
+          <Typography style={{ padding: '20px', marginRight: '0px' }}>{item.description}</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden', paddingTop: '20px' }}>
+            <IconButton aria-label="Reminder" sx={{ paddingRight: '20px' }}>
+              <AddAlertOutlinedIcon style={{ fontSize: '20px' }} />
+            </IconButton>
+
+            <IconButton sx={{ paddingRight: '20px' }}>
+              <PersonAddAltOutlinedIcon style={{ fontSize: '20px' }} />
+            </IconButton>
+
+            <IconButton onClick={() => handleColourChange(selectedColor)} sx={{ paddingRight: '20px' }}>
+              <ColorPickerButton onSelectColor={handleColorSelect} style={{ fontSize: '20px' }} />
+            </IconButton>
+
+            <IconButton sx={{ paddingRight: '20px' }}>
+              <ImageOutlinedIcon style={{ fontSize: '20px' }} />
+            </IconButton>
+
+            <IconButton onClick={onchangeArchive} sx={{ paddingRight: '20px' }}>
+              <ArchiveOutlinedIcon style={{ fontSize: '20px' }} />
+            </IconButton>
+
+            <IconButton onClick={handleDelete} sx={{ paddingRight: '20px' }}> 
+              <DeleteOutlineOutlinedIcon style={{ fontSize: '20px' }} />
+            </IconButton>
+
+          </Typography>
+        </Grid>
+
       </Paper>
     </div>
   );
 }
 
 export default TakeNoteGrid;
+
+// // is trash then call permennt else handle dlete

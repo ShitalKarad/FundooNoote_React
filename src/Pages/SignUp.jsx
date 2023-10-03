@@ -147,7 +147,7 @@ function SignUp() {
             !validationErrors.confirmPassword &&
             userDetails.password === userDetails.confirmPassword // Check if passwords match
         ) {
-            console.log("user",userDetails)
+            console.log("user", userDetails)
             let res = await signUp(userDetails);
             console.log(res);
             navigate('/Login');
@@ -157,48 +157,35 @@ function SignUp() {
         }
     };
 
-    const[showPassword,setShowPassword] = useState();
+    const [showPassword, setShowPassword] = useState();
     const handleShowPasswordChange = (e) => {
-            setShowPassword(e.target.checked);
-          };
+        setShowPassword(e.target.checked);
+    };
 
     const googleText = "Google";
     const colors = ['#4285F4', '#0F9D58', '#F4B400', '#DB4437', '#4285F4'];
     return (
-        <Container maxWidth='sm' style={{
-            marginTop: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', "@media (max-width: 500px)": {
-                border: "none",
-                borderRadius: "0px",
-                padding: 0
+        <Grid container sx={{ height: '100vh', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
 
-            },
-        }}>
-            <Grid container sx={{
+            <Paper elevation={2} >
 
-                border: "1px solid black",
+                <Grid xs={12} sm={9} sx={{ width: '70%', height: 'auto', display: 'flex', paddingRight:'0px' }}>
 
-                width: '750px', height: 'auto', boxShadow: "5px", alignItems: "center", padding: '20px', gap: '20px',
-
-            }}>
-                <Grid sx={{
-                    display: 'flex', justifyContent: 'space-between', width: '100%', height: 'auto', rowGap: '20px',
-
-                }}>
-
-                    <Grid style={{
-                        paddingRight: '50px',
-                        "@media (max-width: 500px)": {
-                            // border: "none",
-                            // borderRadius: 0,
-                            width: '100%',
-                            border: "1px solid red",
+                    <Grid item
+                        lg={8} sx={{
                             display: 'flex',
-                            justifyContent: 'center',
-                            marginLeft: "20px"
-                        },
-                    }}>
-                        <Grid item style={{ marginTop: '0px' }}>
+                            flexDirection: 'column',
+                            alignContent: 'space-between',
+                            padding: 2,
+                            '@media (max-width: 600px)': {
+                                border: 'none',
+                                borderRadius: 0,
+                                padding: '20px',
 
+                            },
+                        }} >
+
+                        <Grid item style={{ marginTop: '0px', }}>
                             <div style={{ display: 'flex' }}>
                                 {googleText.split('').map((letter, index) => (
                                     <Typography key={index} variant="h2" color="" component='p' style={{ color: colors[index], fontSize: '25px' }}>
@@ -207,10 +194,10 @@ function SignUp() {
                                 ))}
                             </div>
 
-                            <h1 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '1.0rem' }}>Create your Google Account</h1>
+                            <h1 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '1.0rem', }}>Create your Google Account</h1>
                         </Grid>
                         <Grid item container spacing={2}>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                                 <TextField
                                     fullWidth
                                     label="First Name*"
@@ -220,8 +207,9 @@ function SignUp() {
                                     value={userDetails.firstName}
                                     onChange={(e) => handleInputChange(e, "firstName")}
                                 />
+
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6} >
                                 <TextField
                                     fullWidth
                                     label="Last Name*"
@@ -230,9 +218,11 @@ function SignUp() {
                                     helperText={validationErrors.lastName || ' '} // Display the error message if it exists
                                     value={userDetails.lastName}
                                     onChange={(e) => handleInputChange(e, "lastName")}
-                                />                                  </Grid>
+                                />
+
+                            </Grid>
                         </Grid>
-                        <Grid item style={{ width: '100%' }}>
+                        <Grid item style={{ width: '100%', paddingBottom: '0px' }}>
                             <TextField
                                 fullWidth
                                 label="email"
@@ -241,14 +231,16 @@ function SignUp() {
                                 helperText={validationErrors.username || ' '}
                                 value={userDetails.username}
                                 onChange={(e) => handleInputChange(e, "email")}
-                            />                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: '0px' }}>
-                                <h1 style={{ fontSize: '0.7rem' }}>You can use letters, numbers & periods</h1>
-                                <p style={{ marginTop: '0px', }} >Use my current email instead</p>
-                            </div>
+                            />
+                            {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '0px' }}> */}
+                            <h1 style={{ fontSize: '0.7rem', marginTop: '0px' }}>You can use letters, numbers & periods</h1>
+                            <p style={{ marginTop: '20px', }} >Use my current email instead</p>
+                            {/* </div> */}
                         </Grid>
                         <Grid item container spacing={2} >
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                                 <TextField
+                                    fullWidth
                                     id="password"
                                     label="Password*"
                                     variant="outlined"
@@ -257,12 +249,13 @@ function SignUp() {
                                     onChange={handlePasswordChange}
                                     error={!!validationErrors.password}
                                     helperText={validationErrors.password || ' '}
-                                    sx={{ fontSize: '0.8rem', padding: '0px', marginBottom: '10px' }}
+                                    sx={{ fontSize: '0.8rem' }}
                                 />
 
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                                 <TextField
+                                    fullWidth
                                     id="confirmPassword"
                                     label="Confirm Password*"
                                     variant="outlined"
@@ -271,17 +264,17 @@ function SignUp() {
                                     onChange={handleConfirmPasswordChange}
                                     error={!!validationErrors.confirmPassword}
                                     helperText={validationErrors.confirmPassword || ' '}
-                                    sx={{ fontSize: '0.8rem', padding: '0px', marginBottom: '10px' }}
+                                    sx={{ fontSize: '0.8rem', padding: '0px' }}
                                 />
                             </Grid>
                         </Grid>
-                        <Grid item >
-                            <div style={{ alignItems: 'flex-start', marginLeft: '0px' }}>
-                                <h1 style={{ fontSize: '0.8rem', marginTop: '20px', letterSpacing: '0px' }}>Use 8 or more characters with a mix of letters, numbers & symbols</h1>
+                        <Grid item style={{ marginBottom: '20px' }} >
+                            {/* <div style={{ alignItems: 'flex-start', marginLeft: '0px' }}> */}
+                            <h1 style={{ fontSize: '0.8rem', letterSpacing: '0px', marginTop: '0px' }}>Use 8 or more characters with a mix of letters, numbers & symbols</h1>
 
-                            </div>
+                            {/* </div> */}
                         </Grid>
-                        <Grid item style={{ marginLeft: '0px', marginTop: '20px' }}>
+                        <Grid item >
                             <Checkbox
                                 id="showPassword"
                                 checked={showPassword}
@@ -289,7 +282,7 @@ function SignUp() {
                             />
                             <label htmlFor="showPassword">Show Password</label>
                         </Grid>
-                        <Grid item xs={12} sm={9} sx={{ display: "flex", gap: 29, marginTop: '30px' }}>
+                        <Grid item xs={12} sm={5} sx={{ display: "flex", gap: 29, marginTop: '30px' }}>
                             <Typography>
                                 <Link href="/login" color="primary">
                                     <span style={{ whiteSpace: "nowrap" }}>Sign in instead</span>
@@ -300,30 +293,41 @@ function SignUp() {
                                 Next
                             </Button>
                         </Grid>
-
                     </Grid>
-                    <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Paper elevation={0} className="right-side" sx={{
-                            "@media (max-width: 600px)": {
-                                display: "none",
 
-                            },
-                        }}>
+
+
+                    <Grid xs={12} sm={4}  lg={6} sx={{marginRight:'0px'}}>
+                        <Grid item
+                            xs={12}
+                            sm={6}
+                            sx={{
+                                marginLeft: '100px',
+                                marginTop: '150px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                '@media (max-width: 600px)': {
+                                    display: 'none',
+                                    margin: '0px'
+                                },
+                                marginRight: '0px',
+                            }}>
+
                             <img
                                 src={signUpImg}
                                 alt="Sign Up"
                                 className="google-drive-image"
-                                style={{ width: '200px', height: '200px', marginRight: '0px' }}
+                                style={{ width: '300px', height: '200px', marginRight: '0px' }}
                             />
-                        </Paper>
+
+                        </Grid>
                     </Grid>
-
                 </Grid>
+            </Paper>
+        </Grid>
 
 
-            </Grid>
-
-        </Container>
     )
 }
 

@@ -8,9 +8,13 @@ import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 import { IconButton, Typography } from '@mui/material';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
+import { archiveNote } from '../../../services/noteServices';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+
+import { deleteNote } from '../../../services/noteServices';
 
 
-function TakeNoteGrid({title,description}) {
+function TakeNoteGrid({ item, isArchived ,id  ,noteGetData}) {
     const [iconVisibility, setIconVisibility] = useState(false);
 
     const handleMouseEnter = () => {
@@ -21,12 +25,31 @@ function TakeNoteGrid({title,description}) {
         setIconVisibility(false);
     };
 
+    let onchangeArchive = async () => {
+        let data = {
+          noteIdList: [id],
+          isArchived: true
+        }
+        let res = await archiveNote(data);
+        console.log(res);
+    
+      }
+      let handleDelete = async () => {
+        console.log('clicked');
+        let data = {
+          noteIdList: [id],
+          isDeleted: true
+        }
+        let res = await deleteNote(data);
+        console.log(res);
+        noteGetData()
+    }
     return (
         <Container maxWidth='3' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
-            <Paper style={{ border: '1px solid gray',  height: 'auto',width:'69%' ,marginLeft:'20px', marginBottom:'20px'}}>
+            <Paper style={{ border: '1px solid gray',  height: 'auto',width:'67%' ,marginLeft:'30px', marginBottom:'20px'}}>
                 <Grid style={{ margin: '15px' , }}>
                     <Grid item style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography>{title}</Typography>
+                        <Typography>{item.title}</Typography>
                         <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden' }}>
                             <PushPinOutlinedIcon style={{ fontSize: '20px' }} />
                         </Typography>
@@ -34,7 +57,7 @@ function TakeNoteGrid({title,description}) {
 
                     </Grid>
                     <Grid item >
-                        <Typography style={{ paddingTop: '20px' }}>{description}</Typography>
+                        <Typography style={{ paddingTop: '20px' }}>{item.description}</Typography>
                     </Grid>
                     <Grid item style={{ marginLeft: 0 }}>
                         <Typography
@@ -58,14 +81,13 @@ function TakeNoteGrid({title,description}) {
                                 <ImageOutlinedIcon style={{ fontSize: '20px' }} />
                             </IconButton>
 
-                            <IconButton sx={{ paddingRight: '20px' }}>
-                                <ArchiveOutlinedIcon style={{ fontSize: '20px' }} />
-                            </IconButton>
+                            <IconButton onClick={onchangeArchive} sx={{ paddingRight: '20px' }}>
+                <ArchiveOutlinedIcon style={{ fontSize: '20px' }} />
+              </IconButton>
 
-                            <IconButton sx={{ paddingRight: '20px' }}>
-                                <MoreVertOutlinedIcon style={{ fontSize: '20px' }} />
-                            </IconButton>
-
+              <IconButton  onClick={handleDelete} sx={{ paddingRight: '20px' }}>
+                <DeleteOutlineOutlinedIcon style={{ fontSize: '20px' }} />
+              </IconButton>
                         </Typography>
                     </Grid>
                 </Grid>

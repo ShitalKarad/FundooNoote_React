@@ -11,96 +11,146 @@ import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 import UndoOutlinedIcon from '@mui/icons-material/UndoOutlined';
 import RedoOutlinedIcon from '@mui/icons-material/RedoOutlined';
 import { addNote } from '../../../services/noteServices';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import ColorPickerButton from '../ColourSelection';
 
-function TakeNoteTwo({noteGetData}) {
 
-    const[addData, setaddData] = useState({
-        title :'',
+
+function TakeNoteTwo({ noteGetData }) {
+
+    const [selectedColor, setSelectedColor] = useState('#ffffff');
+
+    const handleColorSelect = (color) => {
+        console.log("colour", color);
+        setSelectedColor(color);
+        setaddData({
+            ...addData,
+            color: color
+        })
+    };
+
+    const [addData, setaddData] = useState({
+        title: '',
         description: '',
-        isArchived:false,
-         color:''
+        isArchived: false,
+        color: ""
 
     })
 
-     const handleChange = (e)=>{
+    const handleChange = (e) => {
         setaddData({
             ...addData,
-            [e.target.id] :e.target.value
+            [e.target.id]: e.target.value
+
         })
-     }
-    const  addNoteHandle = async() => {
-        // console.log("adddata",addData);
-         let res = await addNote(addData);
-         console.log(res);
-         noteGetData();
-         
     }
 
-    const handleArchive = () =>{
-       setaddData({
-        ...addData,
-        isArchived :true
-       })
-       
+
+
+    const addNoteHandle = async () => {
+        // console.log("adddata",addData);
+        let res = await addNote(addData);
+        console.log(res);
+        noteGetData();
+
+    }
+
+    const handleArchive = () => {
+        setaddData({
+            ...addData,
+            isArchived: true,
+
+        })
+
     }
     return (
         <Container maxWidth='sm' style={{ width: '100%', margin: '30px' }}>
-            <Paper elevation={5} sx={{ p: 3 }}>
-                <TextField
-                     id='title' value={addData.title} variant="standard" placeholder='Title' onChange={handleChange} fullWidth sx={{ outline: 'none', ':&hover': { border: 'none' } }}
+            <Paper elevation={5} sx={{ p: 2, backgroundColor: selectedColor }}
+            // Set background color based on selectedColor prop
 
-                    InputProps={{
-                        disableUnderline: true,
-                        endAdornment: (
-                            <InputAdornment position="end" maxWidth='sm'  style={{ border: 'none', display: 'flex', rowGap: '20px', justifyContent: 'flex-end' }}>
-                                <PushPinOutlinedIcon />
-                            </InputAdornment>
-                        ),
+            >
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', border: 'none' }}>
+                   
+
+                    <TextField
+                        id='title' value={addData.title} variant="standard" placeholder='Title' onChange={handleChange} fullWidth sx={{ outline: 'none', ':&hover': { border: 'none' } }}
+
+                        InputProps={{
+                            disableUnderline: true,
+                            endAdornment: (
+                                <InputAdornment position="end" maxWidth='sm' style={{ border: 'none', display: 'flex', rowGap: '20px', justifyContent: 'flex-end' }}>
+                                    <PushPinOutlinedIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+
+                    />
+                   
+                </div>
+
+                <TextareaAutosize
+                    id='description'
+                    value={addData.description}
+                    onChange={handleChange}
+                    placeholder='Take a note...'
+                    minRows={1} // You can adjust this value as needed
+                    maxRows={10} // You can adjust this value as needed
+                   
+                    style={{
+                        fontFamily: "Roboto, Arial, sans-serif",
+                        fontSize: ".875rem",
+                        fontWeight: 400,
+                        color: "black",
+                        lineHeight: "1.25rem",
+                        resize: 'none',
+                        width: '100%',
+                        border: 'none',
+                        marginTop:'20px',
+                        outline: 'none', ':&hover': { border: 'none' } 
+
                     }}
-               
                 />
-                <TextField
-                    id='description' value={addData.description}  onChange={handleChange} variant="standard" placeholder='Take a note...'  fullWidth sx={{ 
-                     py: '20px', outline: 'none', ':&hover': { border: 'none' } }}
-                    InputProps={{ disableUnderline: true,style:{ fontFamily: "Roboto,Arial,sans-serif",
-                    fontSize: ".875rem",
-                    fontWeight: 400 ,color: "black",lineHeight: "1.25rem"}} }
-                />
-                <Typography >
-                    <IconButton aria-label="Remainder" sx={'small'}>
-                        <AddAlertOutlinedIcon />
-                    </IconButton>
 
-                    <IconButton sx={'small'}>
-                        <PersonAddAltOutlinedIcon />
-                    </IconButton>
 
-                    <IconButton>
-                        <ColorLensOutlinedIcon  />
-                    </IconButton>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' , marginBottom:'0px' }}>
+                    <Typography >
+                        <IconButton aria-label="Remainder" sx={'small'}>
+                            <AddAlertOutlinedIcon sx={{ fontSize: '20px' }} />
+                        </IconButton>
 
-                    <IconButton>
-                        <ImageOutlinedIcon  />
-                    </IconButton>
+                        <IconButton sx={'small'}>
+                            <PersonAddAltOutlinedIcon sx={{ fontSize: '20px' }} />
+                        </IconButton>
 
-                    <IconButton onClick={handleArchive}>
-                        <ArchiveOutlinedIcon />
-                    </IconButton>
+                        <IconButton >
+                            <ColorPickerButton onSelectColor={handleColorSelect} sx={{ fontSize: '20px' }} />
+                        </IconButton>
 
-                    <IconButton>
-                        <MoreVertOutlinedIcon />
-                    </IconButton>
+                        <IconButton>
+                            <ImageOutlinedIcon sx={{ fontSize: '20px' }} />
+                        </IconButton>
 
-                    <IconButton>
-                        <UndoOutlinedIcon />
-                    </IconButton>
+                        <IconButton onClick={handleArchive} sx={{ fontSize: '20px' }}>
+                            <ArchiveOutlinedIcon sx={{ fontSize: '20px' }} />
+                        </IconButton>
 
-                    <IconButton>
-                        <RedoOutlinedIcon />
-                    </IconButton>
-                    
-                    <button onClick={addNoteHandle} style={{border:'none'}}>Close</button>
-                </Typography>
+                        <IconButton>
+                            <MoreVertOutlinedIcon sx={{ fontSize: '20px' }} />
+                        </IconButton>
+
+                        <IconButton>
+                            <UndoOutlinedIcon sx={{ fontSize: '20px' }} />
+                        </IconButton>
+
+                        <IconButton>
+                            <RedoOutlinedIcon sx={{ fontSize: '20px' }} />
+                        </IconButton>
+
+                    </Typography>
+                    <Typography>
+                        <button onClick={addNoteHandle} style={{ border: 'none', fontSize: '16 px', background: 'none', paddingTop: '10px' }}>Close</button>
+                    </Typography>
+                </div>
             </Paper>
 
         </Container>
