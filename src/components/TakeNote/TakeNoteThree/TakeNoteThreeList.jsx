@@ -75,9 +75,9 @@ function TakeNoteGrid({ item ,id  ,noteGetData}) {
       };
     
     return (
-        <Container maxWidth='3' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
-            <Paper style={{ border: '1px solid gray',  height: 'auto',width:'67%' 
-            ,marginLeft:'30px', marginBottom:'20px' ,backgroundColor: item.color,}}>
+        <Container maxWidth='3' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <Paper style={{ border: '1px solid gray',  height: 'auto',width:'50%' 
+            , marginBottom:'20px' ,backgroundColor: item.color,}}>
                 <Grid style={{ margin: '15px' , }}>
                     <Grid item style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography>{item.title}</Typography>

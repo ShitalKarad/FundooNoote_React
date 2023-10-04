@@ -90,7 +90,7 @@ function TakeNoteGrid({ item, id, noteGetData }) {
 
   return (
     <Grid container sx={{
-      margin: '15px',
+      margin: '10px',
       display: 'grid',
       gridTemplateColumns: 'repeat(3, 1fr)', // Three columns with equal width
       gridTemplateRows: 'auto auto', // Two rows with automatic height
@@ -117,7 +117,7 @@ function TakeNoteGrid({ item, id, noteGetData }) {
             <Typography style={{ padding: '20px', marginRight: '0px' }}>{item.description}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden', paddingTop: '20px' }}>
+            <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden'}}>
               <IconButton aria-label="Reminder" sx={{ paddingRight: '20px' }}>
                 <AddAlertOutlinedIcon style={{ fontSize: '20px' }} />
               </IconButton>

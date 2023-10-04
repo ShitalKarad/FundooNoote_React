@@ -78,7 +78,7 @@ function TakeNoteTwo({ noteGetData }) {
                         InputProps={{
                             disableUnderline: true,
                             endAdornment: (
-                                <InputAdornment position="end" maxWidth='sm' style={{ border: 'none', display: 'flex', rowGap: '20px', justifyContent: 'flex-end' }}>
+                                <InputAdornment position="end" maxWidth='sm' style={{ border: 'none', display: 'flex', rowGap: '10px', justifyContent: 'flex-end' }}>
                                     <PushPinOutlinedIcon />
                                 </InputAdornment>
                             ),
@@ -105,7 +105,7 @@ function TakeNoteTwo({ noteGetData }) {
                         resize: 'none',
                         width: '100%',
                         border: 'none',
-                        marginTop:'20px',
+                        // marginTop:'20px',
                         outline: 'none', ':&hover': { border: 'none' } ,
                         backgroundColor: selectedColor
 

@@ -13,8 +13,8 @@ function Router() {
          <BrowserRouter>
                 <Routes>
                     <Route>
+                    <Route path='/login' element={<AuthRoute><Login /></AuthRoute>} />
                         <Route path='/' element={<AuthRoute><SignUp /></AuthRoute> } />
-                        <Route path='/login' element={<AuthRoute><Login /></AuthRoute>} />
                         <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                     </Route>
                 </Routes>

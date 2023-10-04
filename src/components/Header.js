@@ -95,7 +95,7 @@ const Header = ({ setItem, setGrid }) => {
   const navigate = useNavigate()
 
   let poupProfile = () =>{
-    localStorage.removeItem('token');
+    localStorage.removeItem('userDetails');
     // toast(
     //   () =>{
     //     <p>log out successfully ..!</p>
