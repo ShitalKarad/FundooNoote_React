@@ -39,7 +39,7 @@ const ColorPickerButton = ({ onSelectColor }) => {
   return (
     <div>
       <IconButton onClick={handleClick}>
-        <ColorLensOutlinedIcon />
+        <ColorLensOutlinedIcon style={{ fontSize: '20px' }} />
       </IconButton>
       <Popover
         open={open}

@@ -163,8 +163,8 @@ import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
-const LeftNav = ({ item, primary ,SetTypeOfNotes}) => {
-  const drawerWidth = 270;
+const LeftNav = ({ item ,SetTypeOfNotes}) => {
+  const drawerWidth = 180;
 
   const drawerStyles = {
     width: item ? drawerWidth : '60px',

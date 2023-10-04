@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
@@ -15,6 +16,10 @@ import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import { colourNote } from '../../../services/noteServices';
 import ColorPickerButton from '../ColourSelection';
 import { PermenentDeleteNote } from '../../../services/noteServices';
+
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+
+
 function TakeNoteGrid({ item, id, noteGetData }) {
   const [iconVisibility, setIconVisibility] = useState(false);
 
@@ -34,10 +39,22 @@ function TakeNoteGrid({ item, id, noteGetData }) {
     }
     let res = await archiveNote(data);
     console.log(res);
+    noteGetData();
 
   }
+  let onchangeUnArchive = async () => {
+    let data = {
+      noteIdList: [id],
+      isArchived: false
+    }
+    let res = await archiveNote(data);
+    console.log(res);
+    noteGetData();
+
+  }
+
   let handleDelete = async () => {
-    console.log('clicked');
+
     let data = {
       noteIdList: [id],
       isDeleted: true
@@ -48,17 +65,16 @@ function TakeNoteGrid({ item, id, noteGetData }) {
 
   }
 
-  // let handleDeletePemently = async () => {
-  //   console.log('clicked');
-  //   let data = {
-  //     noteIdList: [id],
-  //     isDeleted: true
-  //   }
-  //   let res = await PermenentDeleteNote(data);
-  //   console.log(res);
-  //   noteGetData()
+  let handleDeletePemently = async () => {
+    let data = {
+      noteIdList: [id],
+      isDeleted: true
+    }
+    let res = await PermenentDeleteNote(data);
+    console.log(res);
+    noteGetData()
 
-  // }
+  }
   const [addData, setaddData] = useState({
     title: '',
     description: '',
@@ -91,10 +107,7 @@ function TakeNoteGrid({ item, id, noteGetData }) {
   return (
     <Grid container sx={{
       margin: '10px',
-      display: 'grid',
-      gridTemplateColumns: 'repeat(3, 1fr)', // Three columns with equal width
-      gridTemplateRows: 'auto auto', // Two rows with automatic height
-       // Add some gap between grid items
+
     }}>
 
       <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{
@@ -103,44 +116,56 @@ function TakeNoteGrid({ item, id, noteGetData }) {
         <Paper sx={{
           backgroundColor: item.color, // Set background color based on selectedColor prop
           // Add other card styles here
-          border: '1px solid gray', width: '330px', height: 'auto',
+          border: '1px solid gray', width: '250px', height: 'auto',
         }}>
-          <Grid container spacing={2} style={{ padding: '15px' }}>
+          <Grid container spacing={2} style={{ padding: '10px' }}>
             <Grid item style={{ display: 'flex', justifyContent: 'space-between', justifyContent: 'flex-end' }}>
               <Typography>{item.title}</Typography>
               <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden' }}>
-                <PushPinOutlinedIcon style={{ fontSize: '20px', marginLeft: '190px' }} />
+                <PushPinOutlinedIcon style={{ fontSize: '20px', marginLeft: '110px' }} />
               </Typography>
             </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Typography style={{ padding: '20px', marginRight: '0px' }}>{item.description}</Typography>
+          <Grid item xs={12} style={{ paddingLeft: '10px' }}>
+            <Typography style={{  marginRight: '0px' }}>{item.description}</Typography>
           </Grid>
-          <Grid item xs={12}>
-            <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden'}}>
-              <IconButton aria-label="Reminder" sx={{ paddingRight: '20px' }}>
+          <Grid item xs={12} >
+            <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden' }}>
+              {
+                item.isDeleted ? (<IconButton onClick={handleDeletePemently} sx={{ paddingRight: '10px' }}>
+                  <DeleteForeverOutlinedIcon style={{ fontSize: '20px' }} />
+                </IconButton>) : (
+              <>
+              <IconButton aria-label="Reminder" >
                 <AddAlertOutlinedIcon style={{ fontSize: '20px' }} />
               </IconButton>
 
-              <IconButton sx={{ paddingRight: '20px' }}>
+              <IconButton>
                 <PersonAddAltOutlinedIcon style={{ fontSize: '20px' }} />
               </IconButton>
 
-              <IconButton onClick={() => handleColourChange(selectedColor)} sx={{ paddingRight: '20px' }}>
-                <ColorPickerButton onSelectColor={handleColorSelect} style={{ fontSize: '20px' }} />
+              <IconButton onClick={() => handleColourChange(selectedColor)} >
+                <ColorPickerButton onSelectColor={handleColorSelect}  />
               </IconButton>
 
-              <IconButton sx={{ paddingRight: '20px' }}>
+              <IconButton >
                 <ImageOutlinedIcon style={{ fontSize: '20px' }} />
               </IconButton>
 
-              <IconButton onClick={onchangeArchive} sx={{ paddingRight: '20px' }}>
+              <IconButton onClick={onchangeArchive} >
                 <ArchiveOutlinedIcon style={{ fontSize: '20px' }} />
               </IconButton>
+             
+              <IconButton onClick={ onchangeUnArchive} >
+                <UnarchiveOutlinedIcon style={{ fontSize: '20px' }} />
+              </IconButton>
 
-              <IconButton onClick={handleDelete} sx={{ paddingRight: '20px' }}>
+
+              <IconButton onClick={handleDelete} >
                 <DeleteOutlineOutlinedIcon style={{ fontSize: '20px' }} />
               </IconButton>
+              </>)
+              }
 
             </Typography>
           </Grid>

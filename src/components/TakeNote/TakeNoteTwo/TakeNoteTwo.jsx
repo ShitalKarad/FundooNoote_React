@@ -41,7 +41,6 @@ function TakeNoteTwo({ noteGetData }) {
         setaddData({
             ...addData,
             [e.target.id]: e.target.value
-
         })
     }
 
@@ -64,21 +63,20 @@ function TakeNoteTwo({ noteGetData }) {
 
     }
     return (
-        <Container maxWidth='sm' style={{ width: '100%', margin: '30px' }}>
-            <Paper elevation={5} sx={{ p: 2, backgroundColor: selectedColor }}
+        <Container maxWidth='sm' style={{ width: '100%', marginTop: '30px' }}>
+            <Paper elevation={5} sx={{ p: 1, backgroundColor: selectedColor }}
             // Set background color based on selectedColor prop
 
             >
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', border: 'none' }}>
                    
-
                     <TextField
                         id='title' value={addData.title} variant="standard" placeholder='Title' onChange={handleChange} fullWidth sx={{ outline: 'none', ':&hover': { border: 'none' } }}
 
                         InputProps={{
                             disableUnderline: true,
                             endAdornment: (
-                                <InputAdornment position="end" maxWidth='sm' style={{ border: 'none', display: 'flex', rowGap: '10px', justifyContent: 'flex-end' }}>
+                                <InputAdornment position="end" maxWidth='sm' style={{ border: 'none', display: 'flex', justifyContent: 'flex-end' }}>
                                     <PushPinOutlinedIcon />
                                 </InputAdornment>
                             ),
@@ -113,7 +111,7 @@ function TakeNoteTwo({ noteGetData }) {
                 />
 
 
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' , marginBottom:'0px' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Typography >
                         <IconButton aria-label="Remainder" sx={'small'}>
                             <AddAlertOutlinedIcon sx={{ fontSize: '20px' }} />
@@ -131,7 +129,7 @@ function TakeNoteTwo({ noteGetData }) {
                             <ImageOutlinedIcon sx={{ fontSize: '20px' }} />
                         </IconButton>
 
-                        <IconButton onClick={handleArchive} sx={{ fontSize: '20px' }}>
+                        <IconButton onClick={handleArchive} >
                             <ArchiveOutlinedIcon sx={{ fontSize: '20px' }} />
                         </IconButton>
 
@@ -149,7 +147,7 @@ function TakeNoteTwo({ noteGetData }) {
 
                     </Typography>
                     <Typography>
-                        <button onClick={addNoteHandle} style={{ border: 'none', fontSize: '16 px', background: 'none', paddingTop: '10px' }}>Close</button>
+                        <button onClick={addNoteHandle} style={{ border: 'none', fontSize: '16 px', background: 'none', paddingTop: '20px' }}>Close</button>
                     </Typography>
                 </div>
             </Paper>
