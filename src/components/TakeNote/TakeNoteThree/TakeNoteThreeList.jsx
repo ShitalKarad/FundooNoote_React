@@ -17,7 +17,7 @@ import { colourNote } from '../../../services/noteServices';
 import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
 import { PermenentDeleteNote } from '../../../services/noteServices';
 
-function TakeNoteThreeList({ item, id, noteGetData }) {
+function TakeNoteThreeList({ item, id, noteGetData,filterData}) {
 
 
     const [iconVisibility, setIconVisibility] = useState(false);

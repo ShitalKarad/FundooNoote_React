@@ -12,33 +12,30 @@ import { getNote } from '../services/noteServices';
 import { useLocation } from 'react-router';
 
 function Dashboard() {
-  
 
+  const [search, setSearch] = useState("");
 
-  const [item, setItem] = useState(
-    false
-  )
+  const [searchToggle, setSearchToggle] = useState(false)
+  const [filterData, setFilterData] = useState(null)
 
-  const [toggle, setToggle] = useState(
-    false
-  )
+  const [gird, setGrid] = useState(false)
+  const [item, setItem] = useState(false)
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [toggle, setToggle] = useState(false)
+  const [getdata, setGetData] = useState([]);
+  const [typeOfNotes, SetTypeOfNotes] = useState("Notes");
+
 
   const toggleNote = () => {
     setToggle(previousState => !previousState)
   }
 
-  const [gird, setGrid] = useState(
-    false
-  )
 
   const GridListNote = () => {
     setGrid(previousState => !previousState)
   }
   console.log("grid", gird);
 
-  const [getdata, setGetData] = useState([]);
-
-  const [typeOfNotes, SetTypeOfNotes] = useState("Notes");
 
 
   const noteGetData = async () => {
@@ -67,75 +64,105 @@ function Dashboard() {
       setGetData(newArr)
     }
 
-
-
-    // setGetData(arr)
     console.log(response);
   }
 
   const checkScreenSize = () => {
-    setIsSmallScreen(window.innerWidth < 600); 
+    setIsSmallScreen(window.innerWidth < 600);
   };
 
   useEffect(() => {
+
+    console.log("search", search);
+    let searchResult = getdata.filter((searchItem) =>
+     searchItem.title.toLowerCase().includes(search.toLowerCase())
+    );
+
+    setFilterData(searchResult);
+
+    if (search.length !== 0) {
+      setSearchToggle(true)
+
+    } else {
+      setSearchToggle(false)
+    }
+
     noteGetData();
-    window.addEventListener('resize', checkScreenSize);
-    return () => {
-      window.removeEventListener('resize', checkScreenSize);
-    };
-  }, [typeOfNotes, getdata.length]);
 
-  console.log(getdata);
+  }, [ typeOfNotes, search.length]);
 
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  console.log(filterData);
+
 
 
   useEffect(() => {
     checkScreenSize(); // Initial check when the component mounts
   }, []);
 
-  const gridItemSize = isSmallScreen ? 12 : gird ? 3: 12;
+  const gridItemSize = isSmallScreen ? 12 : gird ? 3 : 12;
 
 
   return (
     <div>
       <CssBaseline />
-      <Header setItem={setItem} setGrid={GridListNote} 
-      style={{ marginBottom: '20px',
-      width: isSmallScreen ? '50%' : '100%', }}  />
+      <Header setItem={setItem} setGrid={GridListNote}
+        style={{
+          marginBottom: '20px',
+          width: isSmallScreen ? '50%' : '100%',
+        }} setSearch={setSearch} search={search} />
       <Container>
-        <Grid container style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Grid item xs={12} sm={3}>
-            <LeftNav SetTypeOfNotes={SetTypeOfNotes} item={item} />
-          </Grid>
-          <Grid item xs={11} sm={9} >
-            {toggle ? <TakeNoteTwo toggleNote={toggleNote} noteGetData={noteGetData} setToggle={setToggle} /> : <TakeNoteFirst toggleNote={toggleNote} />}
-          </Grid>
-          {getdata.map(item => (
-            <Grid item key={item.id}  xs={gridItemSize}>
-              {gird ? (
-                <TakeNoteGrid
-                  item={item}
-                  noteGetData={noteGetData}
-                  gridNote={gird}
-                  id={item.id}
-                  selectedColor={item.color}
-                />
-              ) : (
-                
-                  <TakeNoteThreeList 
-                  key={item.id}
-                  item={item}
-                  noteGetData={noteGetData}
-                  gridNote={gird}
-                  selectedColor={item.color}
-                />
-    
-              )}
-            </Grid>
-          ))}
+      <Grid container style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Grid item xs={12} sm={3}>
+          <LeftNav SetTypeOfNotes={SetTypeOfNotes} item={item} />
         </Grid>
-      </Container>
+        <Grid item xs={11} sm={9}>
+          {toggle ? <TakeNoteTwo toggleNote={toggleNote} noteGetData={noteGetData} setToggle={setToggle} /> : <TakeNoteFirst toggleNote={toggleNote} />}
+        </Grid>
+        {searchToggle
+          ? filterData.map((item) => (
+              <Grid item key={item.id} xs={gridItemSize}>
+                {gird ? (
+                  <TakeNoteGrid
+                    item={item}
+                    noteGetData={noteGetData}
+                    gridNote={gird}
+                    id={item.id}
+                    selectedColor={item.color}
+                  />
+                ) : (
+                  <TakeNoteThreeList
+                    key={item.id}
+                    item={item}
+                    noteGetData={noteGetData}
+                    gridNote={gird}
+                    selectedColor={item.color}
+                  />
+                )}
+              </Grid>
+            ))
+          : getdata.map((item) => (
+              <Grid item key={item.id} xs={gridItemSize}>
+                {gird ? (
+                  <TakeNoteGrid
+                    item={item}
+                    noteGetData={noteGetData}
+                    gridNote={gird}
+                    id={item.id}
+                    selectedColor={item.color}
+                  />
+                ) : (
+                  <TakeNoteThreeList
+                    key={item.id}
+                    item={item}
+                    noteGetData={noteGetData}
+                    gridNote={gird}
+                    selectedColor={item.color}
+                  />
+                )}
+              </Grid>
+            ))}
+      </Grid>
+    </Container>
     </div>
   );
 }

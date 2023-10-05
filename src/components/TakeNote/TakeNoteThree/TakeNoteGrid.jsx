@@ -20,7 +20,7 @@ import { PermenentDeleteNote } from '../../../services/noteServices';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 
 
-function TakeNoteGrid({ item, id, noteGetData }) {
+function TakeNoteGrid({ item, id, noteGetData ,setFilterData}) {
   const [iconVisibility, setIconVisibility] = useState(false);
 
   const handleMouseEnter = () => {

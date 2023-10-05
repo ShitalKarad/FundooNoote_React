@@ -67,7 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-const Header = ({ setItem, setGrid }) => {
+const Header = ({ setItem, setGrid,setSearch ,search}) => {
   function menuToggle() {
     setItem(prev => !prev)
   }
@@ -76,8 +76,14 @@ const Header = ({ setItem, setGrid }) => {
     false
   );
 
-  const handleSearchClick = () => {
+
+  const handleClearSearch = () => {
+    setSearch(''); // Clear the search input by setting it to an empty string
+  };
+  const handleSearchClick = (e) => {
     setIsClicked(true);
+    setSearch(e.target.value);
+  
   };
 
 
@@ -109,6 +115,7 @@ const Header = ({ setItem, setGrid }) => {
     navigate("/login")
   }
   
+
   return (
     <AppBar position="sticky" sx={{ backgroundColor: 'white'}}>
       <Toolbar>
@@ -119,12 +126,16 @@ const Header = ({ setItem, setGrid }) => {
           <img class="gb_Hc gb_Hd" src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" srcset="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/keep_2020q4_48dp.png 2x " alt="" aria-hidden="true" role="presentation" />
           <h3 style={{ color: "black", marginTop: '0px', marginLeft: '12px' }}>Keep</h3>
         </Typography>
-        <Search>
+        <Search
+        onChange={handleSearchClick}
+        value={search}
+        >
           <SearchIconWrapper>
             <SearchIcon style={{ color: 'black' }} />
           </SearchIconWrapper>
           <box
-            onClick={handleSearchClick}
+          
+            
             style={{
               width: '700px',
               height: '48px',
@@ -144,12 +155,12 @@ const Header = ({ setItem, setGrid }) => {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
               style={{ color: 'black', flex: 1 }}
+              value={search}
             />
             <IconButton
               style={{ padding: 4 }} 
-              onClick={() => {
-                // Add your logic to clear the search input here
-              }}
+              onClick={handleClearSearch}
+            
             >
               <ClearIcon style={{ color: 'black', marginRight: '10px' }} />
             </IconButton>
