@@ -8,9 +8,11 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 function TakeNoteFirst({toggleNote}) {
     return (
 
-        <Container maxWidth='sm' style={{ width: '100%', margin: '30px', justifyContent:'center',alignItems:'center' }} onClick={toggleNote}>
+        <Container  maxWidth='sm' style={{ width: '100%', margin: '30px',  }}
+    sx={{alignItems:'center',justifyContent:'center' , paddingLeft:'17px',marginLeft:'15px' }}
+        onClick={toggleNote}  >
 
-            <Paper elevation={5} sx={{ p: 1 }}>
+            <Paper elevation={5} sx={{ p: 1,  }} >
                 <TextField
                     variant="standard" placeholder='Take a note...' fullWidth sx={{ outline: 'none', ':&hover': { border: 'none' } }}
 

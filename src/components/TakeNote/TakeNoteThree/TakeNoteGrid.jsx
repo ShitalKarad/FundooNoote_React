@@ -89,6 +89,7 @@ function TakeNoteGrid({ item, id, noteGetData }) {
       color: selectedColor
     }
     let response = await colourNote(data);
+    console.log(response);
     noteGetData()
 
   }
@@ -106,12 +107,13 @@ function TakeNoteGrid({ item, id, noteGetData }) {
   return (
     <Grid container sx={{
       margin: '10px', 
-      marginLeft:'90px'
-
+      //  marginLeft:'90px',
+      alignContent:'center',
+      justifyContent:'center'
     }}>
 
       <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{
-        maxWidth: '330px',
+        maxWidth: '250px',
       }}>
         <Paper sx={{
           backgroundColor: item.color, // Set background color based on selectedColor prop

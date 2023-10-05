@@ -16,7 +16,7 @@ import ColorPickerButton from '../ColourSelection';
 
 
 
-function TakeNoteTwo({ noteGetData ,setCloseToggle}) {
+function TakeNoteTwo({ noteGetData ,setToggle}) {
 
     const [selectedColor, setSelectedColor] = useState('#ffffff');
 
@@ -47,11 +47,13 @@ function TakeNoteTwo({ noteGetData ,setCloseToggle}) {
 
 
     const addNoteHandle = async () => {
-
+if (!addData.title || !addData.description) {
+    return setToggle(false);
+}
         let res = await addNote(addData);
         console.log(res);
         noteGetData();
-
+        setToggle(false)
     }
 
     const handleArchive = () => {

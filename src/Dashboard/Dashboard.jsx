@@ -12,20 +12,8 @@ import { getNote } from '../services/noteServices';
 import { useLocation } from 'react-router';
 
 function Dashboard() {
-  // const location = useLocation()
+  
 
-
-  // const [selectedColor, setSelectedColor] = useState('#ffffff'); // State for selected color
-
-
-
-  // const handleColorSelect = (color) => {
-  //   setSelectedColor(color);
-  //   setaddData({
-  //     ...addData,
-  //     color:color
-  //   })
-  // };
 
   const [item, setItem] = useState(
     false
@@ -86,7 +74,7 @@ function Dashboard() {
   }
 
   const checkScreenSize = () => {
-    setIsSmallScreen(window.innerWidth < 600); // Define your breakpoint here (e.g., 600px)
+    setIsSmallScreen(window.innerWidth < 600); 
   };
 
   useEffect(() => {
@@ -108,20 +96,23 @@ function Dashboard() {
 
   const gridItemSize = isSmallScreen ? 12 : gird ? 3: 12;
 
+
   return (
     <div>
       <CssBaseline />
-      <Header setItem={setItem} setGrid={GridListNote} style={{ marginBottom: '20px' }} />
+      <Header setItem={setItem} setGrid={GridListNote} 
+      style={{ marginBottom: '20px',
+      width: isSmallScreen ? '50%' : '100%', }}  />
       <Container>
         <Grid container style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Grid item xs={12} sm={3}>
             <LeftNav SetTypeOfNotes={SetTypeOfNotes} item={item} />
           </Grid>
-          <Grid item xs={12} sm={9} >
-            {toggle ? <TakeNoteTwo toggleNote={toggleNote} noteGetData={noteGetData} /> : <TakeNoteFirst toggleNote={toggleNote} />}
+          <Grid item xs={11} sm={9} >
+            {toggle ? <TakeNoteTwo toggleNote={toggleNote} noteGetData={noteGetData} setToggle={setToggle} /> : <TakeNoteFirst toggleNote={toggleNote} />}
           </Grid>
           {getdata.map(item => (
-            <Grid item key={item.id} xs={gridItemSize}>
+            <Grid item key={item.id}  xs={gridItemSize}>
               {gird ? (
                 <TakeNoteGrid
                   item={item}
@@ -131,13 +122,15 @@ function Dashboard() {
                   selectedColor={item.color}
                 />
               ) : (
-                <TakeNoteThreeList style={{display:'flex', justifyContent:'center', alignItems:'center'}}
+                
+                  <TakeNoteThreeList 
                   key={item.id}
                   item={item}
                   noteGetData={noteGetData}
                   gridNote={gird}
                   selectedColor={item.color}
                 />
+    
               )}
             </Grid>
           ))}

@@ -1,3 +1,4 @@
+
 import { Container, Grid, Paper } from '@mui/material';
 import React, { useState } from 'react';
 import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
@@ -16,8 +17,9 @@ import { colourNote } from '../../../services/noteServices';
 import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
 import { PermenentDeleteNote } from '../../../services/noteServices';
 
+function TakeNoteThreeList({ item, id, noteGetData }) {
 
-function TakeNoteGrid({ item, id, noteGetData }) {
+
     const [iconVisibility, setIconVisibility] = useState(false);
 
     const handleMouseEnter = () => {
@@ -28,6 +30,7 @@ function TakeNoteGrid({ item, id, noteGetData }) {
         setIconVisibility(false);
     };
 
+
     let onchangeArchive = async () => {
         let data = {
             noteIdList: [id],
@@ -35,8 +38,20 @@ function TakeNoteGrid({ item, id, noteGetData }) {
         }
         let res = await archiveNote(data);
         console.log(res);
+        noteGetData();
 
     }
+    let onchangeUnArchive = async () => {
+        let data = {
+            noteIdList: [id],
+            isArchived: false
+        }
+        let res = await archiveNote(data);
+        console.log(res);
+        noteGetData();
+
+    }
+
     let handleDelete = async () => {
 
         let data = {
@@ -59,7 +74,6 @@ function TakeNoteGrid({ item, id, noteGetData }) {
         noteGetData()
 
     }
-
     const [addData, setaddData] = useState({
         title: '',
         description: '',
@@ -74,7 +88,7 @@ function TakeNoteGrid({ item, id, noteGetData }) {
             color: selectedColor
         }
         let response = await colourNote(data);
-        console.log('API response:', response);
+        console.log(response);
         noteGetData()
 
     }
@@ -90,7 +104,9 @@ function TakeNoteGrid({ item, id, noteGetData }) {
     };
 
     return (
-        <Container  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Container  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+        sx={{alignItems:'center',justifyContent:'center', display:'flex'}}
+        >
             <Paper style={{
                 border: '1px solid gray', height: 'auto', width: '50%'
                 , marginBottom: '20px', backgroundColor: item.color,
@@ -157,4 +173,5 @@ function TakeNoteGrid({ item, id, noteGetData }) {
     );
 }
 
-export default TakeNoteGrid;
+
+export default TakeNoteThreeList

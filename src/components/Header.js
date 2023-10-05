@@ -32,10 +32,12 @@ const Search = styled('div')(({ theme }) => ({
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: '100%',
   [theme.breakpoints.up('md')]: {
     marginLeft: theme.spacing(3),
     width: 'auto',
+  },
+  [theme.breakpoints.down('sm')]: {
+    display: 'none', // Hide the search bar on screens below 600px width
   },
 }));
 
@@ -58,6 +60,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
       width: '20ch',
     },
+  },
+  [theme.breakpoints.down('sm')]: {
+    display: 'none', // Hide the input field on screens below 600px width
   },
 }));
 
@@ -96,16 +101,16 @@ const Header = ({ setItem, setGrid }) => {
 
   let poupProfile = () =>{
     localStorage.removeItem('userDetails');
-    // toast(
-    //   () =>{
-    //     <p>log out successfully ..!</p>
-    //   }
-    // );
+    toast(
+      () =>{
+        <p>log out successfully ..!</p>
+      }
+    );
     navigate("/login")
   }
-
+  
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: 'white' }}>
+    <AppBar position="sticky" sx={{ backgroundColor: 'white'}}>
       <Toolbar>
         <IconButton edge="start" color="black" aria-label="menu" onClick={menuToggle}>
           <MenuIcon />
@@ -141,7 +146,7 @@ const Header = ({ setItem, setGrid }) => {
               style={{ color: 'black', flex: 1 }}
             />
             <IconButton
-              style={{ padding: 4 }} // Adjust padding as needed
+              style={{ padding: 4 }} 
               onClick={() => {
                 // Add your logic to clear the search input here
               }}
@@ -165,7 +170,7 @@ const Header = ({ setItem, setGrid }) => {
         </IconButton>
 
 
-        <Box sx={{ flexGrow: 0 }}>
+        <Box sx={{ flexGrow: 0 , marginRight:'0px' }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
             <AccountCircleIcon />
@@ -195,10 +200,6 @@ const Header = ({ setItem, setGrid }) => {
             ))}
           </Menu>
         </Box>
-
-        {/* <IconButton color="black">
-         
-        </IconButton> */}
       </Toolbar>
     </AppBar>
   );
