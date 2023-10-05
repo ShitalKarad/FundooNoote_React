@@ -90,12 +90,12 @@ function TakeNoteGrid({ item, id, noteGetData }) {
     };
 
     return (
-        <Container maxWidth='3' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Container  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Paper style={{
                 border: '1px solid gray', height: 'auto', width: '50%'
-                , marginBottom: '20px',  marginLeft:'85px', backgroundColor: item.color,
+                , marginBottom: '20px', backgroundColor: item.color,
             }}>
-                <Grid style={{ margin: '15px', }}>
+                <Grid style={{ margin: '10px', }}>
                     <Grid item style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography>{item.title}</Typography>
                         <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden' }}>
@@ -105,9 +105,9 @@ function TakeNoteGrid({ item, id, noteGetData }) {
 
                     </Grid>
                     <Grid item >
-                        <Typography style={{ paddingTop: '20px' }}>{item.description}</Typography>
+                        <Typography style={{ paddingTop: '10px' }}>{item.description}</Typography>
                     </Grid>
-                    <Grid item style={{ marginLeft: 0 }}>
+                    <Grid item >
                         <Typography style={{
                             visibility: iconVisibility ? 'visible' : 'hidden', paddingTop: '10px'
                         }}>

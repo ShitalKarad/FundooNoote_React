@@ -8,7 +8,7 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 function TakeNoteFirst({toggleNote}) {
     return (
 
-        <Container maxWidth='sm' style={{ width: '100%', margin: '30px' }} onClick={toggleNote}>
+        <Container maxWidth='sm' style={{ width: '100%', margin: '30px', justifyContent:'center',alignItems:'center' }} onClick={toggleNote}>
 
             <Paper elevation={5} sx={{ p: 1 }}>
                 <TextField
@@ -18,16 +18,16 @@ function TakeNoteFirst({toggleNote}) {
                         disableUnderline: true,
                         endAdornment: (
 
-                            <InputAdornment position="end" maxWidth='sm'>
+                            <InputAdornment position="end" >
 
                                 <IconButton>
-                                    <CheckBoxOutlinedIcon sx={'small'} />
+                                    <CheckBoxOutlinedIcon  />
                                 </IconButton>
                                 <IconButton>
-                                    <BrushOutlinedIcon sx={'small'} />
+                                    <BrushOutlinedIcon  />
                                 </IconButton>
                                 <IconButton>
-                                    <ImageOutlinedIcon sx={'small'} />
+                                    <ImageOutlinedIcon  />
                                 </IconButton>
                             </InputAdornment>
                         ),

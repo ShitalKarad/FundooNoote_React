@@ -89,7 +89,6 @@ function TakeNoteGrid({ item, id, noteGetData }) {
       color: selectedColor
     }
     let response = await colourNote(data);
-    console.log('API response:', response);
     noteGetData()
 
   }
@@ -106,7 +105,8 @@ function TakeNoteGrid({ item, id, noteGetData }) {
 
   return (
     <Grid container sx={{
-      margin: '10px',
+      margin: '10px', 
+      marginLeft:'90px'
 
     }}>
 
@@ -116,9 +116,9 @@ function TakeNoteGrid({ item, id, noteGetData }) {
         <Paper sx={{
           backgroundColor: item.color, // Set background color based on selectedColor prop
           // Add other card styles here
-          border: '1px solid gray', width: '250px', height: 'auto',
+          border: '1px solid gray', width: '270px', height: 'auto',
         }}>
-          <Grid container spacing={2} style={{ padding: '10px' }}>
+          <Grid container style={{ padding: '10px' }}>
             <Grid item style={{ display: 'flex', justifyContent: 'space-between', justifyContent: 'flex-end' }}>
               <Typography>{item.title}</Typography>
               <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden' }}>
@@ -127,44 +127,49 @@ function TakeNoteGrid({ item, id, noteGetData }) {
             </Grid>
           </Grid>
           <Grid item xs={12} style={{ paddingLeft: '10px' }}>
-            <Typography style={{  marginRight: '0px' }}>{item.description}</Typography>
+            <Typography style={{ marginRight: '0px' }}>{item.description}</Typography>
           </Grid>
           <Grid item xs={12} >
             <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden' }}>
               {
-                item.isDeleted ? (<IconButton onClick={handleDeletePemently} sx={{ paddingRight: '10px' }}>
+                !item.isDeleted ? (
+                  <>
+                  <IconButton aria-label="Reminder" >
+                  <AddAlertOutlinedIcon style={{ fontSize: '20px' }} />
+                </IconButton>
+
+                <IconButton>
+                  <PersonAddAltOutlinedIcon style={{ fontSize: '20px' }} />
+                </IconButton>
+
+                <IconButton onClick={() => handleColourChange(selectedColor)} >
+                  <ColorPickerButton onSelectColor={handleColorSelect} />
+                </IconButton>
+
+                <IconButton >
+                  <ImageOutlinedIcon style={{ fontSize: '20px' }} />
+                </IconButton>
+
+                {
+
+                  !item.isArchived ? (<IconButton onClick={onchangeArchive} >
+                    <ArchiveOutlinedIcon style={{ fontSize: '20px' }} />
+                  </IconButton>) : (<IconButton onClick={onchangeUnArchive} >
+                    <UnarchiveOutlinedIcon style={{ fontSize: '20px' }} />
+                  </IconButton>)
+                }               
+
+                <IconButton onClick={handleDelete} >
+                  <DeleteOutlineOutlinedIcon style={{ fontSize: '20px' }} />
+                </IconButton>
+                
+                </> 
+               ) : (
+                  <>
+                     <IconButton onClick={handleDeletePemently} sx={{ paddingRight: '10px' }}>
                   <DeleteForeverOutlinedIcon style={{ fontSize: '20px' }} />
-                </IconButton>) : (
-              <>
-              <IconButton aria-label="Reminder" >
-                <AddAlertOutlinedIcon style={{ fontSize: '20px' }} />
-              </IconButton>
-
-              <IconButton>
-                <PersonAddAltOutlinedIcon style={{ fontSize: '20px' }} />
-              </IconButton>
-
-              <IconButton onClick={() => handleColourChange(selectedColor)} >
-                <ColorPickerButton onSelectColor={handleColorSelect}  />
-              </IconButton>
-
-              <IconButton >
-                <ImageOutlinedIcon style={{ fontSize: '20px' }} />
-              </IconButton>
-
-              <IconButton onClick={onchangeArchive} >
-                <ArchiveOutlinedIcon style={{ fontSize: '20px' }} />
-              </IconButton>
-             
-              <IconButton onClick={ onchangeUnArchive} >
-                <UnarchiveOutlinedIcon style={{ fontSize: '20px' }} />
-              </IconButton>
-
-
-              <IconButton onClick={handleDelete} >
-                <DeleteOutlineOutlinedIcon style={{ fontSize: '20px' }} />
-              </IconButton>
-              </>)
+                </IconButton>
+                  </>)
               }
 
             </Typography>

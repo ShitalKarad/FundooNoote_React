@@ -16,7 +16,7 @@ import ColorPickerButton from '../ColourSelection';
 
 
 
-function TakeNoteTwo({ noteGetData }) {
+function TakeNoteTwo({ noteGetData ,setCloseToggle}) {
 
     const [selectedColor, setSelectedColor] = useState('#ffffff');
 
@@ -47,7 +47,7 @@ function TakeNoteTwo({ noteGetData }) {
 
 
     const addNoteHandle = async () => {
-        // console.log("adddata",addData);
+
         let res = await addNote(addData);
         console.log(res);
         noteGetData();
@@ -63,7 +63,7 @@ function TakeNoteTwo({ noteGetData }) {
 
     }
     return (
-        <Container maxWidth='sm' style={{ width: '100%', marginTop: '30px' }}>
+        <Container maxWidth='sm' style={{ width: '100%', margin: '30px' ,   }}>
             <Paper elevation={5} sx={{ p: 1, backgroundColor: selectedColor }}
             // Set background color based on selectedColor prop
 
