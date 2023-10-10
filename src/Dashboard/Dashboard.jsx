@@ -16,13 +16,19 @@ function Dashboard() {
   const [search, setSearch] = useState("");
 
   const [searchToggle, setSearchToggle] = useState(false)
+
   const [filterData, setFilterData] = useState(null)
 
   const [gird, setGrid] = useState(false)
+
   const [item, setItem] = useState(false)
+
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+
   const [toggle, setToggle] = useState(false)
+
   const [getdata, setGetData] = useState([]);
+
   const [typeOfNotes, SetTypeOfNotes] = useState("Notes");
 
 
@@ -35,8 +41,6 @@ function Dashboard() {
     setGrid(previousState => !previousState)
   }
   console.log("grid", gird);
-
-
 
   const noteGetData = async () => {
 
@@ -54,8 +58,6 @@ function Dashboard() {
     else if (typeOfNotes === 'Archive') {
       let newArr = arr.filter((val) => { return val.isArchived && !val.isDeleted })
       setGetData(newArr)
-
-
     }
     else if (typeOfNotes === 'Bin') {
       console.log("arr", arr);
@@ -75,7 +77,7 @@ function Dashboard() {
 
     console.log("search", search);
     let searchResult = getdata.filter((searchItem) =>
-     searchItem.title.toLowerCase().includes(search.toLowerCase())
+      searchItem.title.toLowerCase().includes(search.toLowerCase())
     );
 
     setFilterData(searchResult);
@@ -89,11 +91,9 @@ function Dashboard() {
 
     noteGetData();
 
-  }, [ typeOfNotes, search.length]);
+  }, [typeOfNotes, search.length]);
 
   console.log(filterData);
-
-
 
   useEffect(() => {
     checkScreenSize(); // Initial check when the component mounts
@@ -111,15 +111,15 @@ function Dashboard() {
           width: isSmallScreen ? '50%' : '100%',
         }} setSearch={setSearch} search={search} />
       <Container>
-      <Grid container style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Grid item xs={12} sm={3}>
-          <LeftNav SetTypeOfNotes={SetTypeOfNotes} item={item} />
-        </Grid>
-        <Grid item xs={11} sm={9}>
-          {toggle ? <TakeNoteTwo toggleNote={toggleNote} noteGetData={noteGetData} setToggle={setToggle} /> : <TakeNoteFirst toggleNote={toggleNote} />}
-        </Grid>
-        {searchToggle
-          ? filterData.map((item) => (
+        <Grid container style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Grid item xs={12} sm={3}>
+            <LeftNav SetTypeOfNotes={SetTypeOfNotes} item={item} />
+          </Grid >
+          <Grid item xs={12} sm={9} >
+            {toggle ? <TakeNoteTwo toggleNote={toggleNote} noteGetData={noteGetData} setToggle={setToggle} /> : <TakeNoteFirst toggleNote={toggleNote} />}
+          </Grid>
+          {searchToggle
+            ? filterData.map((item) => (
               <Grid item key={item.id} xs={gridItemSize}>
                 {gird ? (
                   <TakeNoteGrid
@@ -140,7 +140,7 @@ function Dashboard() {
                 )}
               </Grid>
             ))
-          : getdata.map((item) => (
+            : getdata.map((item) => (
               <Grid item key={item.id} xs={gridItemSize}>
                 {gird ? (
                   <TakeNoteGrid
@@ -151,6 +151,7 @@ function Dashboard() {
                     selectedColor={item.color}
                   />
                 ) : (
+
                   <TakeNoteThreeList
                     key={item.id}
                     item={item}
@@ -161,8 +162,8 @@ function Dashboard() {
                 )}
               </Grid>
             ))}
-      </Grid>
-    </Container>
+        </Grid>
+      </Container>
     </div>
   );
 }

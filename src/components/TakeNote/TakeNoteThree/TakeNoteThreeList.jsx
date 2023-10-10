@@ -105,7 +105,7 @@ function TakeNoteThreeList({ item, id, noteGetData,filterData}) {
 
     return (
         <Container  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-        sx={{alignItems:'center',justifyContent:'center', display:'flex'}}
+        sx={{alignItems:'center',justifyContent:'center', width:'100%'}}
         >
             <Paper style={{
                 border: '1px solid gray', height: 'auto', width: '50%'
@@ -117,8 +117,6 @@ function TakeNoteThreeList({ item, id, noteGetData,filterData}) {
                         <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden' }}>
                             <PushPinOutlinedIcon style={{ fontSize: '20px' }} />
                         </Typography>
-
-
                     </Grid>
                     <Grid item >
                         <Typography style={{ paddingTop: '10px' }}>{item.description}</Typography>

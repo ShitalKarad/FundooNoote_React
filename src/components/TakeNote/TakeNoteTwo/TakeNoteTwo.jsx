@@ -16,8 +16,8 @@ import ColorPickerButton from '../ColourSelection';
 
 
 
-function TakeNoteTwo({ noteGetData ,setToggle}) {
-
+function TakeNoteTwo({note, noteGetData, setToggle}) {
+console.log("Take noe2",note)
     const [selectedColor, setSelectedColor] = useState('#ffffff');
 
     const handleColorSelect = (color) => {
@@ -47,15 +47,17 @@ function TakeNoteTwo({ noteGetData ,setToggle}) {
 
 
     const addNoteHandle = async () => {
-if (!addData.title || !addData.description) {
-    return setToggle(false);
-}
+        if (!addData.title || !addData.description) {
+            return setToggle(false);
+        }
         let res = await addNote(addData);
         console.log(res);
         noteGetData();
         setToggle(false)
     }
 
+
+    
     const handleArchive = () => {
         setaddData({
             ...addData,
@@ -65,15 +67,15 @@ if (!addData.title || !addData.description) {
 
     }
     return (
-        <Container maxWidth='sm' style={{ width: '100%', margin: '30px' ,   }}>
+        <Container maxWidth='sm' style={{ width: '100%', margin: '30px', }}>
             <Paper elevation={5} sx={{ p: 1, backgroundColor: selectedColor }}
             // Set background color based on selectedColor prop
 
             >
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', border: 'none' }}>
-                   
+
                     <TextField
-                        id='title' value={addData.title} variant="standard" placeholder='Title' onChange={handleChange} fullWidth sx={{ outline: 'none', ':&hover': { border: 'none' } }}
+                        id='title' value={note ? note.title : addData.title} variant="standard" placeholder='Title' onChange={handleChange} fullWidth sx={{ outline: 'none', ':&hover': { border: 'none' } }}
 
                         InputProps={{
                             disableUnderline: true,
@@ -85,17 +87,17 @@ if (!addData.title || !addData.description) {
                         }}
 
                     />
-                   
+
                 </div>
 
                 <TextareaAutosize
                     id='description'
-                    value={addData.description}
+                    value={ note ? note.description : addData.description}
                     onChange={handleChange}
                     placeholder='Take a note...'
                     minRows={1} // You can adjust this value as needed
                     maxRows={10} // You can adjust this value as needed
-                   
+
                     style={{
                         fontFamily: "Roboto, Arial, sans-serif",
                         fontSize: ".875rem",
@@ -106,7 +108,7 @@ if (!addData.title || !addData.description) {
                         width: '100%',
                         border: 'none',
                         // marginTop:'20px',
-                        outline: 'none', ':&hover': { border: 'none' } ,
+                        outline: 'none', ':&hover': { border: 'none' },
                         backgroundColor: selectedColor
 
                     }}
@@ -149,7 +151,7 @@ if (!addData.title || !addData.description) {
 
                     </Typography>
                     <Typography>
-                        <button onClick={addNoteHandle} style={{ border: 'none', fontSize: '16 px', background: 'none', paddingTop: '20px' }}>Close</button>
+                        <button  onClick={{addNoteHandle }} style={{ border: 'none', fontSize: '16 px', background: 'none', paddingTop: '20px' }}>Close</button>
                     </Typography>
                 </div>
             </Paper>

@@ -167,7 +167,7 @@ function SignUp() {
     return (
         <Grid container sx={{ height: '100vh', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
 
-            <Paper elevation={2} >
+            <Paper  >
 
                 <Grid xs={12} sm={9} sx={{ width: '70%', height: 'auto', display: 'flex', paddingRight:'0px' }}>
 

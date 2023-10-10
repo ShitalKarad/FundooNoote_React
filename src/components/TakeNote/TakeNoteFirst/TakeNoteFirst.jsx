@@ -5,11 +5,12 @@ import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import InputAdornment from '@mui/material/InputAdornment';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 
+
 function TakeNoteFirst({toggleNote}) {
     return (
 
-        <Container  maxWidth='sm' style={{ width: '100%', margin: '30px',  }}
-    sx={{alignItems:'center',justifyContent:'center' , paddingLeft:'17px',marginLeft:'15px' }}
+        <Container  maxWidth='sm' style={{ width: '100%', margin: '30px',  paddingLeft:'30px'}}
+    sx={{alignItems:'center',justifyContent:'center' , paddingLeft:'10px',marginLeft:'10px' }}
         onClick={toggleNote}  >
 
             <Paper elevation={5} sx={{ p: 1,  }} >

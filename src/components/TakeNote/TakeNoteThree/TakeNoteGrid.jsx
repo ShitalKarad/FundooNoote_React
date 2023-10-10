@@ -1,5 +1,4 @@
-
-import { Grid, Paper } from '@mui/material';
+import { Grid, Paper ,Input } from '@mui/material';
 import React, { useState } from 'react';
 import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
@@ -13,15 +12,36 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { deleteNote } from '../../../services/noteServices';
 import { IconButton, Typography } from '@mui/material';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
+import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashOutlined';
 import { colourNote } from '../../../services/noteServices';
 import ColorPickerButton from '../ColourSelection';
 import { PermenentDeleteNote } from '../../../services/noteServices';
+import { updateNotes } from '../../../services/noteServices';
+import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
+
 
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 
 
-function TakeNoteGrid({ item, id, noteGetData ,setFilterData}) {
+function TakeNoteGrid({ item, id, noteGetData }) {
+
+  const [selectedColor, setSelectedColor] = useState('#ffffff');
+
   const [iconVisibility, setIconVisibility] = useState(false);
+
+  const [addData, setaddData] = useState({
+    title: '',
+    description: '',
+    isArchived: false,
+    color: ""
+
+  })
+
+  const [isEditing, setIsEditing] = useState(false);
+
+  const [editedTitle, setEditedTitle] = useState(item.title);
+
+  const [editedDescription, setEditedDescription] = useState(item.description);
 
   const handleMouseEnter = () => {
     setIconVisibility(true);
@@ -65,6 +85,16 @@ function TakeNoteGrid({ item, id, noteGetData ,setFilterData}) {
 
   }
 
+  let restoreTrashNote = async () => {
+    let data = {
+      noteIdList: [id],
+      isDeleted: false
+    }
+    let res = await deleteNote(data);
+    console.log(res);
+    noteGetData()
+  }
+
   let handleDeletePemently = async () => {
     let data = {
       noteIdList: [id],
@@ -75,13 +105,7 @@ function TakeNoteGrid({ item, id, noteGetData ,setFilterData}) {
     noteGetData()
 
   }
-  const [addData, setaddData] = useState({
-    title: '',
-    description: '',
-    isArchived: false,
-    color: ""
 
-  })
 
   let handleColourChange = async () => {
     let data = {
@@ -94,8 +118,6 @@ function TakeNoteGrid({ item, id, noteGetData ,setFilterData}) {
 
   }
 
-  const [selectedColor, setSelectedColor] = useState('#ffffff');
-
   const handleColorSelect = (color) => {
     setSelectedColor(color);
     setaddData({
@@ -104,73 +126,124 @@ function TakeNoteGrid({ item, id, noteGetData ,setFilterData}) {
     })
   };
 
+   
+  const handleTitleChange = (e) => {
+    setEditedTitle(e.target.value);
+  };
+
+  const handleDescriptionChange = (e) => {
+    setEditedDescription(e.target.value);
+  };
+
+  const enterEditMode = () => {
+    setIsEditing(true);
+  };
+
+  const exitEditMode = () => {
+    setIsEditing(false);
+  };
+
+
+  const updateNote = async () => {
+    const updatedData = {
+      noteId:[id],
+      title: editedTitle,
+      description: editedDescription,
+    };
+    const response = await updateNotes(id, updatedData);
+    console.log(response);
+    noteGetData();
+   setIsEditing(false);
+  };
+
   return (
-    <Grid container sx={{
-      margin: '10px', 
-      //  marginLeft:'90px',
-      alignContent:'center',
-      justifyContent:'center'
-    }}>
+    <Grid container 
+      sx={{
+
+        margin: '10px',
+        alignContent: 'center',
+        justifyContent: 'center',
+        marginLeft: '80px',
+      }}>
 
       <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{
         maxWidth: '250px',
       }}>
         <Paper sx={{
-          backgroundColor: item.color, // Set background color based on selectedColor prop
-          // Add other card styles here
-          border: '1px solid gray', width: '270px', height: 'auto',
+          backgroundColor: item.color,
+          border: '1px solid gray',
+          width: '270px',
+          height: 'auto',
+          marginLeft: '0px', // Center the note horizontally
+
+          alignContent: 'center',
+          justifyContent: 'center'
         }}>
           <Grid container style={{ padding: '10px' }}>
             <Grid item style={{ display: 'flex', justifyContent: 'space-between', justifyContent: 'flex-end' }}>
-              <Typography>{item.title}</Typography>
-              <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden' }}>
-                <PushPinOutlinedIcon style={{ fontSize: '20px', marginLeft: '110px' }} />
-              </Typography>
+              {isEditing ? (
+                <Input value={editedTitle} onChange={handleTitleChange} fullWidth />
+              ) : (
+                <Typography>{item.title}</Typography>
+              )}
             </Grid>
           </Grid>
           <Grid item xs={12} style={{ paddingLeft: '10px' }}>
-            <Typography style={{ marginRight: '0px' }}>{item.description}</Typography>
+            {isEditing ? (
+              <Input
+                value={editedDescription}
+                onChange={handleDescriptionChange}
+                fullWidth
+                multiline
+                rows={4}
+              />
+            ) : (
+              <Typography style={{ marginRight: '0px' }}>{item.description}</Typography>
+            )}
           </Grid>
           <Grid item xs={12} >
             <Typography style={{ visibility: iconVisibility ? 'visible' : 'hidden' }}>
               {
                 !item.isDeleted ? (
                   <>
-                  <IconButton aria-label="Reminder" >
-                  <AddAlertOutlinedIcon style={{ fontSize: '20px' }} />
-                </IconButton>
+                    <IconButton aria-label="Reminder" >
+                      <AddAlertOutlinedIcon style={{ fontSize: '20px' }} />
+                    </IconButton>
 
-                <IconButton>
-                  <PersonAddAltOutlinedIcon style={{ fontSize: '20px' }} />
-                </IconButton>
+                    <IconButton>
+                      <PersonAddAltOutlinedIcon style={{ fontSize: '20px' }} />
+                    </IconButton>
 
-                <IconButton onClick={() => handleColourChange(selectedColor)} >
-                  <ColorPickerButton onSelectColor={handleColorSelect} />
-                </IconButton>
+                    <IconButton onClick={() => handleColourChange(selectedColor)} >
+                      <ColorPickerButton onSelectColor={handleColorSelect} />
+                    </IconButton>
 
-                <IconButton >
-                  <ImageOutlinedIcon style={{ fontSize: '20px' }} />
-                </IconButton>
+                    <IconButton   onClick={enterEditMode}>
+                      <ModeEditOutlinedIcon style={{ fontSize: '20px' }} />
+                    </IconButton>
 
-                {
+                    {
+                      !item.isArchived ? (<IconButton onClick={onchangeArchive} >
+                        <ArchiveOutlinedIcon style={{ fontSize: '20px' }} />
+                      </IconButton>) : (<IconButton onClick={onchangeUnArchive} >
+                        <UnarchiveOutlinedIcon style={{ fontSize: '20px' }} />
+                      </IconButton>)
+                    }
 
-                  !item.isArchived ? (<IconButton onClick={onchangeArchive} >
-                    <ArchiveOutlinedIcon style={{ fontSize: '20px' }} />
-                  </IconButton>) : (<IconButton onClick={onchangeUnArchive} >
-                    <UnarchiveOutlinedIcon style={{ fontSize: '20px' }} />
-                  </IconButton>)
-                }               
+                    <IconButton onClick={handleDelete} >
+                      <DeleteOutlineOutlinedIcon style={{ fontSize: '20px' }} />
+                    </IconButton>
 
-                <IconButton onClick={handleDelete} >
-                  <DeleteOutlineOutlinedIcon style={{ fontSize: '20px' }} />
-                </IconButton>
-                
-                </> 
-               ) : (
+                  </>
+                ) : (
                   <>
-                     <IconButton onClick={handleDeletePemently} sx={{ paddingRight: '10px' }}>
-                  <DeleteForeverOutlinedIcon style={{ fontSize: '20px' }} />
-                </IconButton>
+                    <IconButton onClick={handleDeletePemently} sx={{ paddingRight: '10px' }}>
+                      <DeleteForeverOutlinedIcon style={{ fontSize: '20px' }} />
+                    </IconButton>
+
+                    <IconButton onClick={restoreTrashNote}>
+                      <RestoreFromTrashOutlinedIcon />
+                    </IconButton>
                   </>)
               }
 

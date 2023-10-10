@@ -57,3 +57,24 @@ export const PermenentDeleteNote = async ( id) => {
     console.log(response);
     return response;
 }
+
+
+
+// export const updateNotes = async ( data) => {
+//     // console.log(item);
+//     let response = await axios.post( `${url}/updateNotes?${data}`, data
+//         , headerConfig());
+// console.log(response,"--------------------");
+ 
+//     return response;
+// }
+
+export const updateNotes = async (item) => { 
+    console.log(item); 
+    const response = await axios.post( 
+   
+      `${url}/updateNotes?${item.noteId}`,item, 
+      headerConfig() 
+    ); 
+    return response; 
+  };
